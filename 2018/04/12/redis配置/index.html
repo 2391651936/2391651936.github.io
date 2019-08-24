@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="flushdb 删除当前数据库，flushall 删除所有数据库一、windows 配置1、下载redis从 redis 的 github 上下载 .zip https://github.com/ServiceStack/redis-windows 2、在 C 盘创建一个 redis文件夹，然后把之前的 zip 文件解压3、对 Redis 进行配置设置 redis 的最大存储容量  设置 redi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis配置">
+<meta property="og:url" content="http://weijiany.github.io/2018/04/12/redis配置/index.html">
+<meta property="og:site_name" content="杨伟健的博客">
+<meta property="og:description" content="flushdb 删除当前数据库，flushall 删除所有数据库一、windows 配置1、下载redis从 redis 的 github 上下载 .zip https://github.com/ServiceStack/redis-windows 2、在 C 盘创建一个 redis文件夹，然后把之前的 zip 文件解压3、对 Redis 进行配置设置 redis 的最大存储容量  设置 redi">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://weijiany.github.io/images/redis设置最大存储.png">
+<meta property="og:image" content="http://weijiany.github.io/images/redis设置密码.png">
+<meta property="og:updated_time" content="2019-08-24T10:27:10.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis配置">
+<meta name="twitter:description" content="flushdb 删除当前数据库，flushall 删除所有数据库一、windows 配置1、下载redis从 redis 的 github 上下载 .zip https://github.com/ServiceStack/redis-windows 2、在 C 盘创建一个 redis文件夹，然后把之前的 zip 文件解压3、对 Redis 进行配置设置 redis 的最大存储容量  设置 redi">
+<meta name="twitter:image" content="http://weijiany.github.io/images/redis设置最大存储.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://weijiany.github.io/2018/04/12/redis配置/">
+
+
+
+
+
+  <title>redis配置 | 杨伟健的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨伟健的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://weijiany.github.io/2018/04/12/redis配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨伟健">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨伟健的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redis配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-12T15:02:53+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="flushdb-删除当前数据库，flushall-删除所有数据库"><a href="#flushdb-删除当前数据库，flushall-删除所有数据库" class="headerlink" title="flushdb 删除当前数据库，flushall 删除所有数据库"></a>flushdb 删除当前数据库，flushall 删除所有数据库</h4><h2 id="一、windows-配置"><a href="#一、windows-配置" class="headerlink" title="一、windows 配置"></a>一、windows 配置</h2><h3 id="1、下载redis"><a href="#1、下载redis" class="headerlink" title="1、下载redis"></a>1、下载redis</h3><p>从 redis 的 github 上下载 .zip <code>https://github.com/ServiceStack/redis-windows</code></p>
+<h3 id="2、在-C-盘创建一个-redis文件夹，然后把之前的-zip-文件解压"><a href="#2、在-C-盘创建一个-redis文件夹，然后把之前的-zip-文件解压" class="headerlink" title="2、在 C 盘创建一个 redis文件夹，然后把之前的 zip 文件解压"></a>2、在 C 盘创建一个 redis文件夹，然后把之前的 zip 文件解压</h3><h3 id="3、对-Redis-进行配置"><a href="#3、对-Redis-进行配置" class="headerlink" title="3、对 Redis 进行配置"></a>3、对 Redis 进行配置</h3><p>设置 redis 的最大存储容量</p>
+<p><img src="/images/redis设置最大存储.png" alt></p>
+<p>设置 redis 的密码</p>
+<p><img src="/images/redis设置密码.png" alt></p>
+<h3 id="4、把-redis-添加进-windows-的服务"><a href="#4、把-redis-添加进-windows-的服务" class="headerlink" title="4、把 redis 添加进 windows 的服务"></a>4、把 redis 添加进 windows 的服务</h3><p><code>redis-server.exe --service-install redis.windows.conf --loglevel verbose</code></p>
+<h3 id="5、启动-redis-服务"><a href="#5、启动-redis-服务" class="headerlink" title="5、启动 redis 服务"></a>5、启动 redis 服务</h3><p><code>redis-server --service-start</code></p>
+<h3 id="6、卸载-redis-服务"><a href="#6、卸载-redis-服务" class="headerlink" title="6、卸载 redis 服务"></a>6、卸载 redis 服务</h3><p><code>redis-server --service-uninstall</code></p>
+<h2 id="二、linux-配置"><a href="#二、linux-配置" class="headerlink" title="二、linux 配置"></a>二、linux 配置</h2><h3 id="1、下载-redis"><a href="#1、下载-redis" class="headerlink" title="1、下载 redis"></a>1、下载 redis</h3><p>从 redis 的官网上 <code>https://redis.io/</code> 上进行下载 <code>.tar.gz</code> 的格式</p>
+<h3 id="2、解压"><a href="#2、解压" class="headerlink" title="2、解压"></a>2、解压</h3><p>使用 <code>tar -zxvf</code> 命令进行解压</p>
+<h3 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h3><p>进入解压后的文件夹，执行 <code>make</code> 命令进行安装。安装完成后，会在当前文件夹下生成一个 <code>src</code> 的文件夹， <code>src</code> 下包含 <code>redis.conf</code> 配置文件、<code>redis-server</code> 服务器运行命令、<code>redis-cli</code> 连接 <code>redis</code> 客户端。</p>
+<h3 id="4、配置-redis-后台运行"><a href="#4、配置-redis-后台运行" class="headerlink" title="4、配置 redis 后台运行"></a>4、配置 redis 后台运行</h3><p>建议重新复制一个 <code>redis.conf</code> 文件，再进行修改。</p>
+<p>把新复制的文件中，<code>daemonize</code> 修改为 <code>yes</code> 然后执行 <code>redis-server myredis-conf</code> （ps：这里的 myredis-conf 是我重新复制的文件名）。</p>
+<h2 id="三、基本语法"><a href="#三、基本语法" class="headerlink" title="三、基本语法"></a>三、基本语法</h2><h3 id="1、key-键"><a href="#1、key-键" class="headerlink" title="1、key 键"></a>1、key 键</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">keys *                      // 列出当前库所有 key</span><br><span class="line">exists key                  // 当前 key 是否存在，存在返回1，不存在返回0；</span><br><span class="line">move key dbid               // 移动当前 key 到 dbid 号数据库</span><br><span class="line">expire key                  // 设置 key 的过期时间，到时后自动删除</span><br><span class="line">ttl key                     // time to live 判断当前 key 的过期时间，-1：永不过期，-2：已过期</span><br><span class="line">type key                    // 查看当期 key 的数据类型</span><br><span class="line">del key                     // 删除 key</span><br></pre></td></tr></table></figure>
+<h3 id="2、String-字符串"><a href="#2、String-字符串" class="headerlink" title="2、String 字符串"></a>2、String 字符串</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">append key string           // 向 key 追加 string</span><br><span class="line">incr key                    // key 自加</span><br><span class="line">decr key                    // key 自减</span><br><span class="line">incrby key num              // key += num</span><br><span class="line">decrby key nim              // key -= num</span><br><span class="line">getrange key start end      // 获取 key 从 start 到 end</span><br><span class="line">setrange key start str      // 设置 key 从 start 开始，替换为 str</span><br><span class="line">setex key time value        // 设置 key 存活 time 秒，值为 value</span><br><span class="line">setnx key value             // 如果 key 不存在，进行存储</span><br><span class="line">mset k1 v1 k2 v2 k3 v3      // 设置多个 key -- value</span><br><span class="line">mget k1 k2 k3               // 获取多个 key</span><br><span class="line">msetnx k1 v1 k2 v2 k3 v3    // 如果有存在的 key 执行失败，只有当 key 都不存在的时候，再会成功。</span><br></pre></td></tr></table></figure>
+<h3 id="3、List-列表（单-key-多-value）"><a href="#3、List-列表（单-key-多-value）" class="headerlink" title="3、List 列表（单 key 多 value）"></a>3、List 列表（单 key 多 value）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">lpush list 1 2 3 4 5            // 存入一个 key 为：list ，value 为：1 2 3 4 5，</span><br><span class="line">                                  redis 从左开始进行压栈，lpush == left push</span><br><span class="line">rpush list 1 2 3 4 5            // 存入一个 key 为：list ，value 为：1 2 3 4 5，</span><br><span class="line">                                  redis 从右开始进行压栈，lpush == left push</span><br><span class="line">lrange list start end           // 查看 键为：list 的 list 从 start 到 end</span><br><span class="line">lpop list                       // 从栈左侧弹出一个</span><br><span class="line">rpop list                       // 从栈右侧弹出一个</span><br><span class="line">lindex list num                 // 查看当前 list 的 下标为 num 的值</span><br><span class="line">llen list                       // 查看当前 list 的长度</span><br><span class="line">lrem list n value               // 删除 list 的 n 个 value 值</span><br><span class="line">ltrim list start end            // 截取 list 从 start 到 end 的值，并重新赋值给 lsit</span><br><span class="line">rpoplpush list1 list2           // 对 list1 进行 rpop，得到值，然后对 list2 lpush</span><br><span class="line">lset list index value           // 设置 list 的 下标为 index 的值为 value</span><br><span class="line">linsert key before/after v1 v2  // 在 v1 前/后插入 v2</span><br></pre></td></tr></table></figure>
+<h3 id="4、Set-集合（用来去重）"><a href="#4、Set-集合（用来去重）" class="headerlink" title="4、Set 集合（用来去重）"></a>4、Set 集合（用来去重）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sadd set 1 1 2 2 3 3            // 会自动去重</span><br><span class="line">smembers set                    // 查看 set 集合的 成员</span><br><span class="line">sismember set value             // 判断 value 是 set 集合中的成员</span><br><span class="line">scard set                       // 获取 set 中有多少个元素</span><br><span class="line">srem set value                  // 删除 set 中的 value</span><br><span class="line">srandmember set 3               // 在 set 中随机取出 3 个元素</span><br><span class="line">spop set                        // 随机从 set 中取出一个元素</span><br><span class="line">smove set1 set2 val             // 把 set1 中的 val 移动到 set2 中</span><br><span class="line"></span><br><span class="line">数学集合类：</span><br><span class="line">sdiff set1 set2                 // 在 set1 中，不在 set2 中</span><br><span class="line">sinter set1 set2                // 交集</span><br><span class="line">sunion set1 set2                // 并集</span><br></pre></td></tr></table></figure>
+<h3 id="5、hash-哈希-kv-模式不变，但-value-是一个键值对"><a href="#5、hash-哈希-kv-模式不变，但-value-是一个键值对" class="headerlink" title="5、hash 哈希 kv 模式不变，但 value 是一个键值对"></a>5、hash 哈希 kv 模式不变，但 value 是一个键值对</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hset user id 1                  // 设置 user id 为 1</span><br><span class="line">hget user id                    // 获取到 user 的 id 为 1</span><br><span class="line">hmset user id 1 name lisi       // 设置对个值</span><br><span class="line">hmget user id name              // 获取 user 的 id name</span><br><span class="line">hgetall user                    // 获取 user 的所有值</span><br><span class="line">hdel user                       // 删除 user</span><br><span class="line">hlen user                       // 获取 user 的长度</span><br><span class="line">hexists user id                 // 判断 user 中是否存在 id</span><br><span class="line">hkeys user                      // 获取 user 的所有 key</span><br><span class="line">hvals user                      // 获取 user 的所有 value</span><br><span class="line">hincrby user id 1               // 给 user 的 id 属性 +1</span><br><span class="line">hincrbyfloat user id 0.1        // 给 user 的 id 属性 +0.1</span><br><span class="line">hsetnx user id 1                // 向 user 中存储一个 id，不存在存储</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/02/vue学习/" rel="next" title="vue学习">
+                <i class="fa fa-chevron-left"></i> vue学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/03/Serializable接口/" rel="prev" title="Serializable接口">
+                Serializable接口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨伟健</p>
+              <p class="site-description motion-element" itemprop="description">学习总结 思考感悟 阅读笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#flushdb-删除当前数据库，flushall-删除所有数据库"><span class="nav-number">1.</span> <span class="nav-text">flushdb 删除当前数据库，flushall 删除所有数据库</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#一、windows-配置"><span class="nav-number"></span> <span class="nav-text">一、windows 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、下载redis"><span class="nav-number"></span> <span class="nav-text">1、下载redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、在-C-盘创建一个-redis文件夹，然后把之前的-zip-文件解压"><span class="nav-number"></span> <span class="nav-text">2、在 C 盘创建一个 redis文件夹，然后把之前的 zip 文件解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、对-Redis-进行配置"><span class="nav-number"></span> <span class="nav-text">3、对 Redis 进行配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、把-redis-添加进-windows-的服务"><span class="nav-number"></span> <span class="nav-text">4、把 redis 添加进 windows 的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、启动-redis-服务"><span class="nav-number"></span> <span class="nav-text">5、启动 redis 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、卸载-redis-服务"><span class="nav-number"></span> <span class="nav-text">6、卸载 redis 服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、linux-配置"><span class="nav-number"></span> <span class="nav-text">二、linux 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、下载-redis"><span class="nav-number"></span> <span class="nav-text">1、下载 redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、解压"><span class="nav-number"></span> <span class="nav-text">2、解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、安装"><span class="nav-number"></span> <span class="nav-text">3、安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、配置-redis-后台运行"><span class="nav-number"></span> <span class="nav-text">4、配置 redis 后台运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、基本语法"><span class="nav-number"></span> <span class="nav-text">三、基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、key-键"><span class="nav-number"></span> <span class="nav-text">1、key 键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、String-字符串"><span class="nav-number"></span> <span class="nav-text">2、String 字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、List-列表（单-key-多-value）"><span class="nav-number"></span> <span class="nav-text">3、List 列表（单 key 多 value）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、Set-集合（用来去重）"><span class="nav-number"></span> <span class="nav-text">4、Set 集合（用来去重）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、hash-哈希-kv-模式不变，但-value-是一个键值对"><span class="nav-number"></span> <span class="nav-text">5、hash 哈希 kv 模式不变，但 value 是一个键值对</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨伟健</span>
+
+  
+</div>
+
+
+  <div class="powered-by">  个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;&mdash; 杨伟健</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

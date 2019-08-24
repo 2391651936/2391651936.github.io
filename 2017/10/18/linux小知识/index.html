@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、linux 查找占用的端口，并杀死进程假设我要使用8000端口，被其他程序占用了1、查找占用的端口 1netstat -apn | grep 8000  最后一项显示的是 pid 和对应的名称 2、杀掉对应的进程1kill -9 10064 这样使用该端口的进程被杀死了。  如果当前只有 lo 一个回环网卡的话，设置 eth0 的 ip，使用 ifconfig eth0 192.168.158">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux小知识">
+<meta property="og:url" content="http://weijiany.github.io/2017/10/18/linux小知识/index.html">
+<meta property="og:site_name" content="杨伟健的博客">
+<meta property="og:description" content="一、linux 查找占用的端口，并杀死进程假设我要使用8000端口，被其他程序占用了1、查找占用的端口 1netstat -apn | grep 8000  最后一项显示的是 pid 和对应的名称 2、杀掉对应的进程1kill -9 10064 这样使用该端口的进程被杀死了。  如果当前只有 lo 一个回环网卡的话，设置 eth0 的 ip，使用 ifconfig eth0 192.168.158">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://weijiany.github.io/images/查看端口.png">
+<meta property="og:updated_time" content="2019-08-24T10:27:10.900Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux小知识">
+<meta name="twitter:description" content="一、linux 查找占用的端口，并杀死进程假设我要使用8000端口，被其他程序占用了1、查找占用的端口 1netstat -apn | grep 8000  最后一项显示的是 pid 和对应的名称 2、杀掉对应的进程1kill -9 10064 这样使用该端口的进程被杀死了。  如果当前只有 lo 一个回环网卡的话，设置 eth0 的 ip，使用 ifconfig eth0 192.168.158">
+<meta name="twitter:image" content="http://weijiany.github.io/images/查看端口.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://weijiany.github.io/2017/10/18/linux小知识/">
+
+
+
+
+
+  <title>linux小知识 | 杨伟健的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨伟健的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://weijiany.github.io/2017/10/18/linux小知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨伟健">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨伟健的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">linux小知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-18T20:49:18+08:00">
+                2017-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、linux-查找占用的端口，并杀死进程"><a href="#一、linux-查找占用的端口，并杀死进程" class="headerlink" title="一、linux 查找占用的端口，并杀死进程"></a>一、linux 查找占用的端口，并杀死进程</h2><h3 id="假设我要使用8000端口，被其他程序占用了"><a href="#假设我要使用8000端口，被其他程序占用了" class="headerlink" title="假设我要使用8000端口，被其他程序占用了"></a>假设我要使用8000端口，被其他程序占用了</h3><p>1、查找占用的端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -apn | grep 8000</span><br></pre></td></tr></table></figure>
+<p><img src="/images/查看端口.png" alt></p>
+<p>最后一项显示的是 pid 和对应的名称</p>
+<p>2、杀掉对应的进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 10064</span><br></pre></td></tr></table></figure></p>
+<p>这样使用该端口的进程被杀死了。</p>
+<ol>
+<li><p>如果当前只有 <code>lo</code> 一个回环网卡的话，设置 <code>eth0</code> 的 <code>ip</code>，使用 <code>ifconfig eth0 192.168.158.2</code> 当前虚拟机网段，根据在虚拟机中设置的 <code>网络连接模式</code> 来区分。<strong><em>临时改变 ip 地址</em></strong></p>
+<ol>
+<li><p>桥接模式：使用物理机的网卡进行通讯，但是需要占用物理机网段的 ip 地址，不光可以与自己的主机通讯，还可以与局域网内的其他计算机进行通讯。</p>
+</li>
+<li><p>NAT 模式：虚拟机使用 VMNAT8 虚拟网卡与主机通讯，如果主机能够上网的话，虚拟机也可以。</p>
+</li>
+<li><p>HOST-ONLY模式：虚拟机使用 VMNAT1 虚拟网卡与主机通讯，且只能与主机通讯。</p>
+</li>
+</ol>
+</li>
+<li><p>-rw-r–r–：分为两部分，</p>
+<ol>
+<li><p>-：文件类型：</p>
+<ol>
+<li>-：文件</li>
+<li>d：文件夹</li>
+<li>l：软连接</li>
+</ol>
+</li>
+<li>rw-r–r–：<br> rw-|r–|r–<br> :-:|:-:|:-:|<br> u|g|o<br> u：所有者|g：所属组|o：其他人<br> r：读|w：写|x：执行</li>
+</ol>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">df</td>
+<td style="text-align:center">查看文件分区</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">ls</td>
+<td style="text-align:center">显示当前文件</td>
+<td style="text-align:center">-a：所有，-l：long 信息，-h：文件大小，-d：只针对某个目录，-i：inode号</td>
+</tr>
+<tr>
+<td style="text-align:center">mkdir [文件名]</td>
+<td style="text-align:center">创建文件夹</td>
+<td style="text-align:center">-p：递归创建</td>
+</tr>
+<tr>
+<td style="text-align:center">rmdir [文件名]</td>
+<td style="text-align:center">删除空目录</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">cp [源文件或目录] [目标目录]</td>
+<td style="text-align:center">复制</td>
+<td style="text-align:center">-r：复制目录，-p：保存文件的属性</td>
+</tr>
+<tr>
+<td style="text-align:center">mv [源文件或目录] [目标目录]</td>
+<td style="text-align:center">移动文件</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">rm [文件或目录]</td>
+<td style="text-align:center">删除</td>
+<td style="text-align:center">-r：删除目录，-f：强制删除</td>
+</tr>
+<tr>
+<td style="text-align:center">cd</td>
+<td style="text-align:center">切换目录</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">pwd</td>
+<td style="text-align:center">显示当前目录的绝对路径</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">touch [文件名]</td>
+<td style="text-align:center">创建文件</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">cat [文件名]</td>
+<td style="text-align:center">查看文件的内容</td>
+<td style="text-align:center">-n：显示行号</td>
+</tr>
+<tr>
+<td style="text-align:center">tac [文件名]</td>
+<td style="text-align:center">反向显示文件内容</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">more [文件名]</td>
+<td style="text-align:center">分页显示文件内容，f：上一页，b：下一页</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">less [文件名]</td>
+<td style="text-align:center">分页显示文件内容，比 more 跟丰富</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">head -n [num] [文件名]</td>
+<td style="text-align:center">显示前几行，默认 10</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">tail -n [num] [文件名]</td>
+<td style="text-align:center">显示后几行，默认 10</td>
+<td style="text-align:center">-f：动态显示文件末尾内容，当文件发生变化时，这里也发生变化</td>
+</tr>
+<tr>
+<td style="text-align:center">ln [源文件] [目标文件]</td>
+<td style="text-align:center">生成连接文件</td>
+<td style="text-align:center">-s：软连接(不加-s：硬连接)，软连接：类似 win 快捷方式；硬连接：连接文件会与源文件同步更新</td>
+</tr>
+<tr>
+<td style="text-align:center">chmod [文件名]</td>
+<td style="text-align:center">修改权限</td>
+<td style="text-align:center">r：4，w：2，x：1；[ugo][+-=][rwx]；-R：递归修改</td>
+</tr>
+<tr>
+<td style="text-align:center">chown [用户] [文件]</td>
+<td style="text-align:center">改变文件所有者</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">chgrp [用户组] [文件]</td>
+<td style="text-align:center">改变文件所有组</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">umask -S</td>
+<td style="text-align:center">显示新建文件的缺省权限</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">find [搜索范围] [匹配条件]</td>
+<td style="text-align:center">文件搜索</td>
+<td style="text-align:center">-name：根据文件名搜索，-iname：忽略大小写；-size：根据文件大小 +：大于；-：小于；-user/group：根据所有者/所属组；-amin：访问时间；-cmin：文件属性(ls -l 显示的内容)；-mmin：文件内容；-a：and；-o：or；-type：根据文件类型，f：文件；d：目录；l：软连接；inum：根据inode节点查看</td>
+</tr>
+<tr>
+<td style="text-align:center">find [搜索范围] [匹配条件] -exec/-ok [命令] {} \;</td>
+<td style="text-align:center">对当前查找到的文件执行某个操作</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">locate [文件名]</td>
+<td style="text-align:center">根据资料库进行查找</td>
+<td style="text-align:center">/tmp/不回收入资料库中；-i：不区分大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">updatedb</td>
+<td style="text-align:center">跟新 locate 资料库</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">which [命令]</td>
+<td style="text-align:center">查找命令所在的文件，和别名</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">whereis [命令]</td>
+<td style="text-align:center">查找命令所在的文件，和帮助文档</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">grep [内容] [文件]</td>
+<td style="text-align:center">在文件内容中搜索</td>
+<td style="text-align:center">-i：忽略大小写；-v：排除指定字串</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/18/django小工具/" rel="next" title="django小工具">
+                <i class="fa fa-chevron-left"></i> django小工具
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/18/ubuntu-下配置-nginx-uwsgi-django/" rel="prev" title="ubuntu 下配置 nginx + uwsgi + django">
+                ubuntu 下配置 nginx + uwsgi + django <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨伟健</p>
+              <p class="site-description motion-element" itemprop="description">学习总结 思考感悟 阅读笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、linux-查找占用的端口，并杀死进程"><span class="nav-number">1.</span> <span class="nav-text">一、linux 查找占用的端口，并杀死进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#假设我要使用8000端口，被其他程序占用了"><span class="nav-number">1.1.</span> <span class="nav-text">假设我要使用8000端口，被其他程序占用了</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨伟健</span>
+
+  
+</div>
+
+
+  <div class="powered-by">  个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;&mdash; 杨伟健</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

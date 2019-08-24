@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="webpack 学习这里使用的是 webpack4 在使用的同时，需要在全局安装 webpack4 webpack-cli，当前最新版本为 webpack4 webpack install webpack webpack-cli -g 一、直接上一个最简单的配置123456789101112131415161718192021222324252627282930313233343536373839">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack 学习">
+<meta property="og:url" content="http://weijiany.github.io/2018/10/07/webpack-学习/index.html">
+<meta property="og:site_name" content="杨伟健的博客">
+<meta property="og:description" content="webpack 学习这里使用的是 webpack4 在使用的同时，需要在全局安装 webpack4 webpack-cli，当前最新版本为 webpack4 webpack install webpack webpack-cli -g 一、直接上一个最简单的配置123456789101112131415161718192021222324252627282930313233343536373839">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-24T10:27:10.904Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack 学习">
+<meta name="twitter:description" content="webpack 学习这里使用的是 webpack4 在使用的同时，需要在全局安装 webpack4 webpack-cli，当前最新版本为 webpack4 webpack install webpack webpack-cli -g 一、直接上一个最简单的配置123456789101112131415161718192021222324252627282930313233343536373839">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://weijiany.github.io/2018/10/07/webpack-学习/">
+
+
+
+
+
+  <title>webpack 学习 | 杨伟健的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨伟健的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://weijiany.github.io/2018/10/07/webpack-学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨伟健">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨伟健的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack 学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-07T10:13:39+08:00">
+                2018-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="webpack-学习"><a href="#webpack-学习" class="headerlink" title="webpack 学习"></a>webpack 学习</h4><p>这里使用的是 <code>webpack4</code> 在使用的同时，需要在全局安装 <code>webpack4 webpack-cli</code>，当前最新版本为 <code>webpack4</code></p>
+<p><code>webpack install webpack webpack-cli -g</code></p>
+<h2 id="一、直接上一个最简单的配置"><a href="#一、直接上一个最简单的配置" class="headerlink" title="一、直接上一个最简单的配置"></a>一、直接上一个最简单的配置</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>); <span class="comment">// 自动生成 html 插件</span></span><br><span class="line"><span class="keyword">const</span> CleanWebpackPlugin = <span class="built_in">require</span>(<span class="string">"clean-webpack-plugin"</span>); <span class="comment">// 清除之前打包好的文件</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">	mode: <span class="string">'development'</span>, <span class="comment">// 模式，在 --mode 中指明</span></span><br><span class="line">	entry: &#123; </span><br><span class="line">        <span class="comment">// 入口起点，同时打包后会生成一个 Chunk Name 的名字，这个在使用 html-webpack-plugin 插件时候，可以指定 chunk 来指定导入的模块</span></span><br><span class="line">        main: <span class="string">'./src/client/index.js'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">	output: &#123; <span class="comment">// 出口</span></span><br><span class="line">		filename: <span class="string">'js/[name]-[hash].js'</span>, <span class="comment">// 文件名称，[hash] 指定名称带 hash 版本号，可以指定长度 [hash:5] 默认长度为 20</span></span><br><span class="line">		path: path.resolve(__dirname, <span class="string">'dist'</span>) <span class="comment">// 位置</span></span><br><span class="line">	&#125;,</span><br><span class="line">    <span class="comment">// 定义对模块的处理逻辑</span></span><br><span class="line">	<span class="built_in">module</span>: &#123;</span><br><span class="line">        <span class="comment">// loader 加载器，webpack 默认只能打包 js 但是使用了 loader 之后可以把 css、图片等资源当做模块进行打包</span></span><br><span class="line">		rules: [</span><br><span class="line">			&#123;</span><br><span class="line">				test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">				use: [ <span class="string">'style-loader'</span>, <span class="string">'css-loader'</span> ]</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				test: <span class="regexp">/\.(png|gif)$/</span>,</span><br><span class="line">				loader: <span class="string">"url-loader"</span>,</span><br><span class="line">				options: &#123;</span><br><span class="line">					limit: <span class="number">8192</span> <span class="comment">// 小于 8kb 的图片以 base64 的形式打包到 js 中</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">                <span class="comment">// 处理 es6</span></span><br><span class="line">				test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">				use: [<span class="string">'babel-loader'</span>],</span><br><span class="line">                exclude: <span class="regexp">/node_modules/</span> <span class="comment">// 排除 node_models 下面的 js，缩减打包时间</span></span><br><span class="line">			&#125;</span><br><span class="line">		]</span><br><span class="line">	&#125;,</span><br><span class="line">	devServer: &#123;</span><br><span class="line">		open: <span class="literal">true</span>,</span><br><span class="line">        host: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>,</span><br><span class="line">        port: <span class="number">3000</span>,</span><br><span class="line">        openPage: <span class="string">'/different/page'</span>, <span class="comment">// 配置打开的网页</span></span><br><span class="line">        hot: <span class="literal">true</span>, <span class="comment">// 热更新</span></span><br><span class="line">	&#125;,</span><br><span class="line">    <span class="comment">// 插件</span></span><br><span class="line">	plugins: [</span><br><span class="line">        <span class="comment">// 根据模板创建 html</span></span><br><span class="line">		<span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">			filename: <span class="string">'index.html'</span>,</span><br><span class="line">			template: <span class="string">"./public/index.html"</span>,</span><br><span class="line">            chunks: [], <span class="comment">// 指定需要在当前页面中链接的 js，如果缺少当前属性的话，会链接全部</span></span><br><span class="line">		&#125;),</span><br><span class="line">        <span class="comment">// 在每次打包前先删除文件夹</span></span><br><span class="line">		<span class="keyword">new</span> CleanWebpackPlugin([<span class="string">'dist'</span>])</span><br><span class="line">	]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="二、code-splitting-代码分割"><a href="#二、code-splitting-代码分割" class="headerlink" title="二、code splitting 代码分割"></a>二、code splitting 代码分割</h2><p>webpack 是 All In One 的一种设想，但是当使用第三方库的时候，会导致打包后的那个 js 文件特别大，加载非常慢，webpack 给我们提供了一个解决办法，code splitting 代码分割。</p>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只在当前模块使用模块 A，在当前界面进行懒加载模块 A</span></span><br><span class="line"><span class="built_in">require</span>.ensure([], (<span class="built_in">require</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> A = <span class="built_in">require</span>(<span class="string">"A"</span>);</span><br><span class="line">    A();</span><br><span class="line">&#125;, <span class="string">"A"</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/30/centos-安装-mysql/" rel="next" title="centos 安装 mysql">
+                <i class="fa fa-chevron-left"></i> centos 安装 mysql
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/22/react学习/" rel="prev" title="react学习">
+                react学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨伟健</p>
+              <p class="site-description motion-element" itemprop="description">学习总结 思考感悟 阅读笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack-学习"><span class="nav-number">1.</span> <span class="nav-text">webpack 学习</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#一、直接上一个最简单的配置"><span class="nav-number"></span> <span class="nav-text">一、直接上一个最简单的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、code-splitting-代码分割"><span class="nav-number"></span> <span class="nav-text">二、code splitting 代码分割</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨伟健</span>
+
+  
+</div>
+
+
+  <div class="powered-by">  个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;&mdash; 杨伟健</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1、 为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空 sessionpython manage.py clearsessions 通过这行代码清空 session 2、 文件上传1234def handle_uploaded_file(f):    with open(&apos;some/file/name.txt&apos;, &apos;wb+&apos;) as destination:        for ch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django小工具">
+<meta property="og:url" content="http://weijiany.github.io/2017/10/18/django小工具/index.html">
+<meta property="og:site_name" content="杨伟健的博客">
+<meta property="og:description" content="1、 为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空 sessionpython manage.py clearsessions 通过这行代码清空 session 2、 文件上传1234def handle_uploaded_file(f):    with open(&apos;some/file/name.txt&apos;, &apos;wb+&apos;) as destination:        for ch">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-24T10:27:10.898Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="django小工具">
+<meta name="twitter:description" content="1、 为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空 sessionpython manage.py clearsessions 通过这行代码清空 session 2、 文件上传1234def handle_uploaded_file(f):    with open(&apos;some/file/name.txt&apos;, &apos;wb+&apos;) as destination:        for ch">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://weijiany.github.io/2017/10/18/django小工具/">
+
+
+
+
+
+  <title>django小工具 | 杨伟健的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨伟健的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://weijiany.github.io/2017/10/18/django小工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨伟健">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨伟健的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">django小工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-18T20:47:26+08:00">
+                2017-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/django/" itemprop="url" rel="index">
+                    <span itemprop="name">django</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1、-为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空-session"><a href="#1、-为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空-session" class="headerlink" title="1、 为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空 session"></a>1、 为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空 session</h2><p><code>python manage.py clearsessions</code></p>
+<p>通过这行代码清空 session</p>
+<h2 id="2、-文件上传"><a href="#2、-文件上传" class="headerlink" title="2、 文件上传"></a>2、 文件上传</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_uploaded_file</span><span class="params">(f)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'some/file/name.txt'</span>, <span class="string">'wb+'</span>) <span class="keyword">as</span> destination:</span><br><span class="line">        <span class="keyword">for</span> chunk <span class="keyword">in</span> f.chunks():</span><br><span class="line">            destination.write(chunk)</span><br></pre></td></tr></table></figure>
+<h2 id="3、-django-crontab-实现定时任务"><a href="#3、-django-crontab-实现定时任务" class="headerlink" title="3、 django-crontab 实现定时任务"></a>3、 django-crontab 实现定时任务</h2><h3 id="3-1-安装-django-crontab"><a href="#3-1-安装-django-crontab" class="headerlink" title="3.1 安装 django-crontab:"></a>3.1 安装 django-crontab:</h3><p><code>pip install django-crontab</code></p>
+<h3 id="3-2-django-crontab-加入"><a href="#3-2-django-crontab-加入" class="headerlink" title="3.2 django-crontab 加入:"></a>3.2 django-crontab 加入:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = (</span><br><span class="line">	<span class="string">'django_crontab'</span>,</span><br><span class="line">	...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-django-crontab-定时运行命令："><a href="#3-3-django-crontab-定时运行命令：" class="headerlink" title="3.3 django-crontab 定时运行命令："></a>3.3 django-crontab 定时运行命令：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CRONJOBS = [</span><br><span class="line">    (<span class="string">'0 0 1 * *'</span>, <span class="string">'admina.cron.createMonthReportForm'</span>, <span class="string">'&gt;&gt; /projects/src/month_log'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><em><strong>解释：</strong></em> 每年每月1日0点0分执行 createMonthReportForm 函数。</p>
+<h3 id="3-4-django-crontab定时运行函数："><a href="#3-4-django-crontab定时运行函数：" class="headerlink" title="3.4 django-crontab定时运行函数："></a>3.4 django-crontab定时运行函数：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CRONJOBS = (</span><br><span class="line">    <span class="comment"># 初级模式</span></span><br><span class="line">    (<span class="string">'*/5 * * * *'</span>, <span class="string">'myproject.myapp.cron.my_scheduled_job'</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 中级模式</span></span><br><span class="line">    (<span class="string">'0   0 1 * *'</span>, <span class="string">'myproject.myapp.cron.my_scheduled_job'</span>, <span class="string">'&gt; /tmp/last_scheduled_job.log'</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment">#高级模式</span></span><br><span class="line">    (<span class="string">'0   0 * * 0'</span>, <span class="string">'django.core.management.call_command'</span>, [<span class="string">'dumpdata'</span>, <span class="string">'auth'</span>], &#123;<span class="string">'indent'</span>: <span class="number">4</span>&#125;, <span class="string">'&gt; /home/john/backups/last_sunday_auth_backup.json'</span>),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><strong>分析结果：</strong></p>
+<ul>
+<li>初级模式很直观，意思就是每五分钟执行一次my_scheduled_job这个程序；</li>
+<li>中级模式有个后缀，意思是将程序my_scheduled_job的结果输出到文件/tmp/last_scheduled_job.log中；</li>
+<li>高级模式加入了参数，其中[‘dumpdata’, ‘auth’]和{‘indent’: 4}都是参数，只是[]中的参数是按照顺序代入，而{}中的参数指定了变量名称，最后一个也是输出结果的后缀。</li>
+</ul>
+<h3 id="3-5-django-crontab任务加载："><a href="#3-5-django-crontab任务加载：" class="headerlink" title="3.5 django-crontab任务加载："></a>3.5 django-crontab任务加载：</h3><p>django-crontab 任务加载比较简单，只需要运行<code>python manage.py crontab add</code>即可;</p>
+<p>查看 django-crontab 中已经存在的任务<code>python manage.py crontab -e</code>;</p>
+<p>移除所有的任务，则运行<code>python manage.py crontab remove</code>;</p>
+<p>当你修改了任务，需要再次运行<code>python manage.py crontab add</code>。</p>
+<h2 id="4、用-django-自带-form-表单实现登录"><a href="#4、用-django-自带-form-表单实现登录" class="headerlink" title="4、用 django 自带 form 表单实现登录"></a>4、用 django 自带 form 表单实现登录</h2><h3 id="假设有这样的form："><a href="#假设有这样的form：" class="headerlink" title="假设有这样的form："></a>假设有这样的form：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django <span class="keyword">import</span> forms</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ContactForm</span><span class="params">(forms.Form)</span>:</span></span><br><span class="line">    account = forms.CharField(label=<span class="string">"账号"</span>, max_length=<span class="number">20</span>)</span><br><span class="line">    password = forms.CharField(label=<span class="string">"密码"</span>, max_length=<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="假设有登录成功之后跳转到-“-admina-news”，可以在-views-py-中这样写："><a href="#假设有登录成功之后跳转到-“-admina-news”，可以在-views-py-中这样写：" class="headerlink" title="假设有登录成功之后跳转到 “/admina/news”，可以在 views.py 中这样写："></a>假设有登录成功之后跳转到 “/admina/news”，可以在 views.py 中这样写：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_form</span><span class="params">(req)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> req.method == <span class="string">"POST"</span>:</span><br><span class="line">        form = ContactForm(req.POST)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">		<span class="comment"># form.is_valid() 使用 django 的一套系统对表单验证，验证后的表单数据将位于form.cleaned_data 字典中。</span></span><br><span class="line">            data = form.cleaned_data</span><br><span class="line">            account = data[<span class="string">"account"</span>]</span><br><span class="line">            password = data[<span class="string">"password"</span>]</span><br><span class="line">			</span><br><span class="line">			<span class="comment"># 与数据库中的数据对比</span></span><br><span class="line">			</span><br><span class="line">            <span class="keyword">return</span> HttpResponse(<span class="string">r'&lt;script&gt;alert("登录成功！");windows.location.href="/admina/news"&lt;/script&gt;'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        form = ContactForm()</span><br><span class="line">    <span class="keyword">return</span> render_to_response(<span class="string">"admina/index.html"</span>, &#123;<span class="string">"form"</span>: form&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="表单渲染的选项："><a href="#表单渲染的选项：" class="headerlink" title="表单渲染的选项："></a>表单渲染的选项：</h3><p>表单模板的额外标签</p>
+<p>不要忘记，表单的输出不 包含<code>&lt;form&gt;</code> 标签，和表单的submit 按钮。你必须自己提供它们。</p>
+<p>对于<code>&lt;label&gt;/&lt;input&gt;</code> 对，还有几个输出选项：</p>
+<p><code>{ { form.as_table } }</code> 以表格的形式将它们渲染在<code>&lt;tr&gt;</code>标签中</p>
+<p><code>{ { form.as_p } }</code>  将它们渲染在<code>&lt;p&gt;</code>标签中</p>
+<p><code>{ { form.as_ul } }</code> 将它们渲染在<code>&lt;li&gt;</code>标签中</p>
+<p>注意，你必须自己提供<code>&lt;table&gt;</code>或<code>&lt;ul&gt;</code>元素。</p>
+<h3 id="从模型创建表单"><a href="#从模型创建表单" class="headerlink" title="从模型创建表单"></a>从模型创建表单</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.forms <span class="keyword">import</span> ModelForm</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Form</span><span class="params">(ModelForm)</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = models.Author</span><br><span class="line">        fields = [<span class="string">'firstName'</span>, <span class="string">'secondName'</span>]</span><br><span class="line">        <span class="comment"># fields = '__all__'</span></span><br></pre></td></tr></table></figure>
+<h3 id="表单工厂-modelform-factory"><a href="#表单工厂-modelform-factory" class="headerlink" title="表单工厂 modelform_factory"></a>表单工厂 modelform_factory</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.forms <span class="keyword">import</span> modelform_factory</span><br><span class="line"></span><br><span class="line">Form = modelform_factory(models.Author, fields=(<span class="string">'firstName'</span>, <span class="string">'secondName'</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="5、在创建模型时，使用-models-DateTimeField-auto-now-True"><a href="#5、在创建模型时，使用-models-DateTimeField-auto-now-True" class="headerlink" title="5、在创建模型时，使用 models.DateTimeField(auto_now=True)"></a>5、在创建模型时，使用 models.DateTimeField(auto_now=True)</h2><h3 id="需要把setting-py中的USE-TZ值改为False"><a href="#需要把setting-py中的USE-TZ值改为False" class="headerlink" title="需要把setting.py中的USE_TZ值改为False"></a><strong><em>需要把setting.py中的USE_TZ值改为False</em></strong></h3><h2 id="6、-django-中-url-模板的使用"><a href="#6、-django-中-url-模板的使用" class="headerlink" title="6、 django 中 url 模板的使用"></a>6、 django 中 url 模板的使用</h2><h3 id="1、不带-namespace"><a href="#1、不带-namespace" class="headerlink" title="1、不带 namespace"></a>1、不带 namespace</h3><p><strong>urls.py：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^a1$'</span>, views.a1, name=<span class="string">"a1"</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>template.html：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'a1' %&#125;"</span>&gt;</span>跳转到a1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>view.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">a1</span><span class="params">(req)</span>:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<h3 id="2、带-namespace"><a href="#2、带-namespace" class="headerlink" title="2、带 namespace"></a>2、带 namespace</h3><p><strong>app1/urls.py：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^a1$'</span>, views.a1, name=<span class="string">"a1"</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>projects/urls.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url, include</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^app1/'</span>, include(<span class="string">"app1.urls"</span>, namespace=<span class="string">"app1"</span>)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>template.html：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'app1:a1' %&#125;"</span>&gt;</span>跳转到a1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>	<span class="comment">&lt;!-- 注意 ':' 后面不能加空格 --&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>view.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">a1</span><span class="params">(req)</span>:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<p><em><strong>注意：</strong></em> 如果 url 像<code>(r&#39;^time/plus/(\d{1,2})/$&#39;, hours_ahead)</code>这个样子，那么你需要在对应的 view 中添加一个参数，参数的数量取决于你 url 中的组数。</p>
+<h2 id="7、locals-函数"><a href="#7、locals-函数" class="headerlink" title="7、locals() 函数"></a>7、locals() 函数</h2><p>locals() ，它返回的字典对所有局部变量的名称与值进行映射。</p>
+<p><strong><em>例如：</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> locals()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&#123;<span class="string">"a"</span>: <span class="number">1</span>&#125;	<span class="comment"># 还会有别的东西，不知道是什么鬼。</span></span><br></pre></td></tr></table></figure>
+<p>适用于 render_to_response()</p>
+<h2 id="8、通用视图"><a href="#8、通用视图" class="headerlink" title="8、通用视图"></a>8、通用视图</h2><p><strong>views.py：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render_to_response</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">object_list</span><span class="params">(request, model)</span>:</span></span><br><span class="line">    obj_list = model.objects.all()</span><br><span class="line">    template_name = <span class="string">'mysite/%s_list.html'</span> % model.__name__.lower()</span><br><span class="line">    <span class="keyword">return</span> render_to_response(template_name, &#123;<span class="string">'object_list'</span>: obj_list&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>urls.py：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> views, models</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    (<span class="string">r'^events/$'</span>, views.object_list, &#123;<span class="string">'model'</span>: models.Event&#125;),</span><br><span class="line">    (<span class="string">r'^blog/entries/$'</span>, views.object_list, &#123;<span class="string">'model'</span>: models.BlogEntry&#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>解释：</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里的 url 中最后的是传递到函数中的默认参数，通过他来使用通用视图。_<strong>例如：只想显示数据库中的一部分内容，可以像上面那样，使用通用视图；或者显示网页的时候，只是网页不同，都是render_to_response。</strong>_</p>
+<h2 id="9、django-设置-session-过期时间"><a href="#9、django-设置-session-过期时间" class="headerlink" title="9、django 设置 session 过期时间"></a>9、django 设置 session 过期时间</h2><h3 id="session的超时时间设置："><a href="#session的超时时间设置：" class="headerlink" title="session的超时时间设置："></a>session的超时时间设置：</h3><p>SESSION_COOKIE_AGE=60 * 30 30分钟。</p>
+<p>SESSION_EXPIRE_AT_BROWSER_CLOSE False：会话cookie可以在用户浏览器中保持有效期。True：关闭浏览器，则Cookie失效</p>
+<p>SESSION_COOKIE_DOMAIN 生效站点</p>
+<p>SESSION_COOKIE_NAME cookie中保存session的名称</p>
+<p>Session使用比较简单，在request.session是一个字典类。session是保存在数据库中的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/18/jQuery小工具/" rel="next" title="jQuery小工具">
+                <i class="fa fa-chevron-left"></i> jQuery小工具
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/18/linux小知识/" rel="prev" title="linux小知识">
+                linux小知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨伟健</p>
+              <p class="site-description motion-element" itemprop="description">学习总结 思考感悟 阅读笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空-session"><span class="nav-number">1.</span> <span class="nav-text">1、 为了避免由于用户不通过正常的登出方式退出系统，需要定时的清空 session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、-文件上传"><span class="nav-number">2.</span> <span class="nav-text">2、 文件上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、-django-crontab-实现定时任务"><span class="nav-number">3.</span> <span class="nav-text">3、 django-crontab 实现定时任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-安装-django-crontab"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 安装 django-crontab:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-django-crontab-加入"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 django-crontab 加入:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-django-crontab-定时运行命令："><span class="nav-number">3.3.</span> <span class="nav-text">3.3 django-crontab 定时运行命令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-django-crontab定时运行函数："><span class="nav-number">3.4.</span> <span class="nav-text">3.4 django-crontab定时运行函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-django-crontab任务加载："><span class="nav-number">3.5.</span> <span class="nav-text">3.5 django-crontab任务加载：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、用-django-自带-form-表单实现登录"><span class="nav-number">4.</span> <span class="nav-text">4、用 django 自带 form 表单实现登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#假设有这样的form："><span class="nav-number">4.1.</span> <span class="nav-text">假设有这样的form：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#假设有登录成功之后跳转到-“-admina-news”，可以在-views-py-中这样写："><span class="nav-number">4.2.</span> <span class="nav-text">假设有登录成功之后跳转到 “/admina/news”，可以在 views.py 中这样写：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单渲染的选项："><span class="nav-number">4.3.</span> <span class="nav-text">表单渲染的选项：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从模型创建表单"><span class="nav-number">4.4.</span> <span class="nav-text">从模型创建表单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单工厂-modelform-factory"><span class="nav-number">4.5.</span> <span class="nav-text">表单工厂 modelform_factory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、在创建模型时，使用-models-DateTimeField-auto-now-True"><span class="nav-number">5.</span> <span class="nav-text">5、在创建模型时，使用 models.DateTimeField(auto_now=True)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需要把setting-py中的USE-TZ值改为False"><span class="nav-number">5.1.</span> <span class="nav-text">需要把setting.py中的USE_TZ值改为False</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、-django-中-url-模板的使用"><span class="nav-number">6.</span> <span class="nav-text">6、 django 中 url 模板的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、不带-namespace"><span class="nav-number">6.1.</span> <span class="nav-text">1、不带 namespace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、带-namespace"><span class="nav-number">6.2.</span> <span class="nav-text">2、带 namespace</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、locals-函数"><span class="nav-number">7.</span> <span class="nav-text">7、locals() 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、通用视图"><span class="nav-number">8.</span> <span class="nav-text">8、通用视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、django-设置-session-过期时间"><span class="nav-number">9.</span> <span class="nav-text">9、django 设置 session 过期时间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#session的超时时间设置："><span class="nav-number">9.1.</span> <span class="nav-text">session的超时时间设置：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨伟健</span>
+
+  
+</div>
+
+
+  <div class="powered-by">  个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;&mdash; 杨伟健</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

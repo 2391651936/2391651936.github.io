@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="react-router-dom4 学习一、HTML 5 历史记录 API =&amp;gt; BrowserRouter12345import &amp;#123;BrowserRouter&amp;#125; from &apos;react-router-dom&apos;;&amp;lt;BrowserRouter&amp;gt;    &amp;lt;App /&amp;gt;&amp;lt;/BrowserRouter&amp;gt; 属性：  basename(string">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react-router-dom4 学习">
+<meta property="og:url" content="http://weijiany.github.io/2018/10/23/react-router-dom-学习/index.html">
+<meta property="og:site_name" content="杨伟健的博客">
+<meta property="og:description" content="react-router-dom4 学习一、HTML 5 历史记录 API =&amp;gt; BrowserRouter12345import &amp;#123;BrowserRouter&amp;#125; from &apos;react-router-dom&apos;;&amp;lt;BrowserRouter&amp;gt;    &amp;lt;App /&amp;gt;&amp;lt;/BrowserRouter&amp;gt; 属性：  basename(string">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-24T10:27:10.902Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react-router-dom4 学习">
+<meta name="twitter:description" content="react-router-dom4 学习一、HTML 5 历史记录 API =&amp;gt; BrowserRouter12345import &amp;#123;BrowserRouter&amp;#125; from &apos;react-router-dom&apos;;&amp;lt;BrowserRouter&amp;gt;    &amp;lt;App /&amp;gt;&amp;lt;/BrowserRouter&amp;gt; 属性：  basename(string">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://weijiany.github.io/2018/10/23/react-router-dom-学习/">
+
+
+
+
+
+  <title>react-router-dom4 学习 | 杨伟健的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨伟健的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://weijiany.github.io/2018/10/23/react-router-dom-学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨伟健">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨伟健的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">react-router-dom4 学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T19:17:52+08:00">
+                2018-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="react-router-dom4-学习"><a href="#react-router-dom4-学习" class="headerlink" title="react-router-dom4 学习"></a>react-router-dom4 学习</h4><h2 id="一、HTML-5-历史记录-API-gt-BrowserRouter"><a href="#一、HTML-5-历史记录-API-gt-BrowserRouter" class="headerlink" title="一、HTML 5 历史记录 API =&gt; BrowserRouter"></a>一、HTML 5 历史记录 API =&gt; BrowserRouter</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;BrowserRouter&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line">&lt;BrowserRouter&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">&lt;<span class="regexp">/BrowserRouter&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>属性：</strong></p>
+<ol>
+<li><p>basename(string)：所有 <code>Router</code> 的基本 <code>URL</code>，如果应用程序从服务器上的子目录提供，则需要将其设置为子目录。正确格式的基础名称应该有一个主要的斜杠，但没有尾部斜线。例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;BrowserRouter basename=<span class="string">"/abc"</span>&gt; </span><br><span class="line">&lt;Link to=<span class="string">"/qwe"</span>&gt;</span><br><span class="line"><span class="comment">// render: &lt;a href="/abc/qwe"&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>getUserConfirmation(func)：导航到此页面前执行的函数，默认使用 <code>window.confirm</code>，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getConfirmation = <span class="function">(<span class="params">message</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.confirm(message);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;BrowserRouter</span><br><span class="line">    getUserConfirmation=&#123;getConfirmation(<span class="string">"真是费劲啊"</span>)&#125;&gt;</span><br><span class="line">&lt;<span class="regexp">/BrowserRouter&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>forceRefresh(bool)：如果为 <code>true</code>，则路由器将在页面导航中使用全页刷新，而不是平常使用的局部刷新。</p>
+</li>
+<li>keyLength(number)：设置 <code>Route</code> 传递给组件中 <code>location.key</code> 的值，默认为 6，点击同一个连接，<code>location.key</code> 的值都会发生改变。</li>
+</ol>
+<h2 id="二、使用-URL-的-HASH-部分-API-gt-HashRouter"><a href="#二、使用-URL-的-HASH-部分-API-gt-HashRouter" class="headerlink" title="二、使用 URL 的 HASH 部分 API =&gt; HashRouter"></a>二、使用 URL 的 HASH 部分 API =&gt; HashRouter</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;HashRouter&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line">&lt;HashRouter &gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">&lt;<span class="regexp">/HashRouter&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>属性：</strong></p>
+<ol>
+<li>basename(string)：与 BrowserRouter 一样。</li>
+<li>getUserConfirmation(func)：与 BrowserRouter 一样。</li>
+<li>hashType(string)：用于 <code>window.location.hash</code> 的编码类型。例如： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;HashRouter hashType=<span class="string">"slash"</span>&gt;</span><br><span class="line"><span class="comment">// #/aaa/home/123</span></span><br><span class="line">&lt;HashRouter hashType=<span class="string">"noslash"</span>&gt;</span><br><span class="line"><span class="comment">// #aaa/home/123 区别：开始的斜线</span></span><br><span class="line">《HashRouter hashType=<span class="string">"hashbang"</span>&gt;</span><br><span class="line"><span class="comment">// #!/aaa/home/123 (已被谷歌弃用)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="三、在应用范围提供声明式，可访问式导航"><a href="#三、在应用范围提供声明式，可访问式导航" class="headerlink" title="三、在应用范围提供声明式，可访问式导航"></a>三、在应用范围提供声明式，可访问式导航</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Link&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line">&lt;Link to=<span class="string">"/hello"</span>&gt;hello&lt;<span class="regexp">/Link&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>属性：</strong></p>
+<ol>
+<li><p>to(string)：链接到的路径，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=<span class="string">"/hello"</span>&gt;hello&lt;<span class="regexp">/Link&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>to(object)：链接的位置，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=&#123;&#123;<span class="attr">pathname</span>: <span class="string">'/home'</span>, <span class="attr">search</span>: <span class="string">'?sort=name'</span>, <span class="attr">hash</span>: <span class="string">'#the-hash'</span>, <span class="attr">state</span>: &#123;<span class="attr">fromDashboard</span>: <span class="literal">true</span>&#125;, <span class="attr">query</span>: &#123;<span class="attr">data</span>:<span class="number">1</span>&#125;&#125;&#125;&gt;测试&lt;<span class="regexp">/Link&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 所有参数都可以通过 <code>props.location</code> 获取，参数解释：</p>
+<ul>
+<li><code>pathname</code>：要访问的路由</li>
+<li><code>search</code>：url 参数，需要自己进行解析</li>
+<li><code>hash</code>：url hash 部分，需要自己解析</li>
+<li><code>state</code>：状态，但是在刷新的时候会导致 <code>state</code> 变成 <code>undefined</code></li>
+<li><code>query</code>：由上个路由传下来的参数，刷新会导致 <code>query</code> 变成 <code>undefined</code></li>
+</ul>
+</li>
+<li>replac(bool)：如果为true，单击链接将替换历史堆栈中的当前条目，而不是添加新条目。</li>
+<li>innerRef(func)：允许访问底层组件的引用，例如： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=<span class="string">"/about"</span> innerRef=&#123;node =&gt; <span class="built_in">console</span>.log(node &amp;&amp; node.textContent)&#125;&gt;about&lt;<span class="regexp">/Link&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="四、一种特殊版本的，当与当前URL匹配时，将向渲染元素添加样式属性。"><a href="#四、一种特殊版本的，当与当前URL匹配时，将向渲染元素添加样式属性。" class="headerlink" title="四、一种特殊版本的，当与当前URL匹配时，将向渲染元素添加样式属性。"></a>四、一种特殊版本的，当与当前URL匹配时，将向渲染元素添加样式属性。</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NavLink &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></span><br><span class="line"></span><br><span class="line">&lt;NavLink to=<span class="string">"/about"</span>&gt;About&lt;<span class="regexp">/NavLink&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>属性：</strong></p>
+<ol>
+<li><p>activeClassName(string)：当链接活动时，给元素添加显示的类；不指定名字时，默认为 <code>active</code> 例如：</p>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*nav.css:*/</span></span><br><span class="line"><span class="selector-class">.active</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LinkList.js</span></span><br><span class="line">&lt;NavLink to=<span class="string">'/home'</span> activeClassName=<span class="string">'active'</span>&gt;home&lt;<span class="regexp">/NavLink&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>activeStyle(object)：当链接活动时，给元素添加显示的样式，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;NavLink to=<span class="string">'/home'</span> activeStyle=&#123;&#123;<span class="attr">color</span>: <span class="string">'green'</span>&#125;&#125;&gt;home&lt;<span class="regexp">/NavLink&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>exact(bool)：为 true 时，只有完全匹配才会显示元素样式，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;NavLink to=<span class="string">'/home'</span> exact&gt;home&lt;NavLink&gt;</span><br></pre></td></tr></table></figure>
+<p> 当访问 <code>/home</code> 匹配显示元素样式，但是 <code>/home/123</code> 不显示元素样式。</p>
+</li>
+<li><p>strict(string)：为真时，在确定位置是否与当前网址匹配时，将考虑位置路径名上的尾部斜线，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;NavLink to=<span class="string">'/home/'</span> strict&gt;home&lt;NavLink&gt;</span><br></pre></td></tr></table></figure>
+<p> 当访问 <code>/home/</code> 匹配显示元素样式，但是 <code>/home</code> 不显示元素样式。</p>
+</li>
+<li>isActive(func)：用于确定链接是否激活的额外逻辑功能，例如： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;NavLink isActive=&#123;(match, location) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 逻辑代码，返回 true 显示样式，返回 false 不显示样式</span></span><br><span class="line">&#125;&#125;&gt;isActive&lt;<span class="regexp">/NavLink&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="五、渲染将导航到新位置。新位置将覆盖历史堆栈中的当前位置，如服务器端重定向。"><a href="#五、渲染将导航到新位置。新位置将覆盖历史堆栈中的当前位置，如服务器端重定向。" class="headerlink" title="五、渲染将导航到新位置。新位置将覆盖历史堆栈中的当前位置，如服务器端重定向。"></a>五、渲染将导航到新位置。新位置将覆盖历史堆栈中的当前位置，如服务器端重定向。</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Route, Redirect &#125; <span class="keyword">from</span> <span class="string">'react-router'</span></span><br><span class="line"></span><br><span class="line">&lt;Route exact path=<span class="string">"/"</span> render=&#123;() =&gt; (</span><br><span class="line">    loggedIn ? (</span><br><span class="line">        &lt;Redirect to=<span class="string">"/dashboard"</span>/&gt;</span><br><span class="line">    ) : (</span><br><span class="line">        &lt;PublicHomePage/&gt;</span><br><span class="line">    )</span><br><span class="line">)&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>属性：</strong></p>
+<ol>
+<li><p>to(string)：重定向的路径，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Redirect to=<span class="string">"/home"</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>to(object)：重定向的路径，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    &lt;Redirect to=&#123;&#123;<span class="attr">pathname</span>: <span class="string">'/home'</span>, <span class="attr">search</span>: <span class="string">'?sort=name'</span>, <span class="attr">hash</span>: <span class="string">'#the-hash'</span>, <span class="attr">state</span>: &#123;<span class="attr">fromDashboard</span>: <span class="literal">true</span>&#125;, <span class="attr">query</span>: &#123;<span class="attr">data</span>:<span class="number">1</span>&#125;&#125;&#125;&gt;</span><br><span class="line">    <span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">3. push(bool)：为 true 时，重定向会将新条目推入历史记录，而不是替换当前条目，例如：</span></span><br><span class="line"><span class="string">    `</span><span class="string">``</span>javascript</span><br><span class="line">    &lt;Redirect push to=<span class="string">"/home"</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="六、Route-渲染方式"><a href="#六、Route-渲染方式" class="headerlink" title="六、Route 渲染方式"></a>六、Route 渲染方式</h2><ul>
+<li><code>&lt;Route component/&gt;</code></li>
+<li><code>&lt;Route render/&gt;</code></li>
+<li><code>&lt;Route children/&gt;</code></li>
+</ul>
+<p>虽然提供三种使用方式，但是你只能使用其中的一种；每种渲染方式都将通过相同的三个 <code>route props</code></p>
+<ul>
+<li>match</li>
+<li>location</li>
+<li>history</li>
+</ul>
+<ol>
+<li><p>component(组件)：仅当位置匹配时才呈现的 React 组件，他将与 route props 一起呈现，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Home = <span class="function">(<span class="params">&#123;match, location, history&#125;</span>) =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>hello &#123;match.params.username&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>render(func)：可以更方便的对组件进行包装，可以使用户高阶组件对 Route 进行再一次的包装，例如：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> FadingRoute = <span class="function">(<span class="params">&#123; component: Component, ...rest &#125;</span>) =&gt;</span> (</span><br><span class="line">    &lt;Route &#123;...rest&#125; render=&#123;props =&gt; (</span><br><span class="line">        &lt;FadeIn&gt;</span><br><span class="line">            &lt;Component &#123;...props&#125;/&gt;</span><br><span class="line">        &lt;<span class="regexp">/FadeIn&gt;</span></span><br><span class="line"><span class="regexp">    )&#125;/</span>&gt;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&lt;FadingRoute path=<span class="string">"/cool"</span> component=&#123;Something&#125;/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>children(func)：不理解。。。</p>
+</li>
+<li>path(string)：url 路径</li>
+<li>exact(bool)：为 true 时，只有路径完全匹配才显示。</li>
+<li>strict(bool)：为 true 时，匹配尾部斜杠</li>
+</ol>
+<h2 id="七、switch-渲染被其包裹的-Route-或-Redirect-第一个匹配-location-的哪一个。"><a href="#七、switch-渲染被其包裹的-Route-或-Redirect-第一个匹配-location-的哪一个。" class="headerlink" title="七、switch 渲染被其包裹的 Route 或 Redirect 第一个匹配 location 的哪一个。"></a>七、switch 渲染被其包裹的 Route 或 Redirect 第一个匹配 location 的哪一个。</h2><h2 id="八、history-对象（props-中的-history-对象）"><a href="#八、history-对象（props-中的-history-对象）" class="headerlink" title="八、history 对象（props 中的 history 对象）"></a>八、history 对象（props 中的 history 对象）</h2><ol>
+<li>length(number)：当前历史栈中存在的实体数量。</li>
+<li>action(stirng)：当前路由的 action  (PUSH, REPLACE, or POP)</li>
+<li>location(object)：当前的 location</li>
+<li>push(func)：在历史栈中压入一个实体</li>
+<li>go(func)：通过n个条目移动历史堆栈中的指针</li>
+<li>goBack(func)：返回上一级 =&gt; go(-1)</li>
+<li>goForward(func)：相当于 =&gt; go(1)</li>
+<li>block(func)：但离开网页时，会触发一个 confirm。</li>
+</ol>
+<hr>
+<h2 id="简单封装-react-router-dom"><a href="#简单封装-react-router-dom" class="headerlink" title="简单封装 react-router-dom"></a>简单封装 react-router-dom</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123;Route, Switch&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在进行路由嵌套时，需要把上级路由的 match 传入。</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> createRoute = <span class="function">(<span class="params">routes</span>) =&gt;</span> <span class="function">(<span class="params">&#123;match = &#123;url: <span class="string">""</span>&#125;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">            &#123;</span><br><span class="line">            routes.map(<span class="function">(<span class="params">route, index</span>) =&gt;</span> (</span><br><span class="line">                &lt;Route</span><br><span class="line">                    key=&#123;index&#125;</span><br><span class="line">                    path=&#123;<span class="string">`<span class="subst">$&#123;match.url&#125;</span><span class="subst">$&#123;route.path&#125;</span>`</span>&#125;</span><br><span class="line">                    exact=&#123;route.exact&#125;</span><br><span class="line">                    component=&#123;route.component&#125;</span><br><span class="line">                /&gt;))</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure>
+<h2 id="简单封装-react-loadable"><a href="#简单封装-react-loadable" class="headerlink" title="简单封装 react-loadable"></a>简单封装 react-loadable</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> Loadable <span class="keyword">from</span> <span class="string">'react-loadable'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (filename) =&gt; Loadable(&#123;</span><br><span class="line">    loader: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">`@/component/<span class="subst">$&#123;filename&#125;</span>`</span>),</span><br><span class="line">    loading: <span class="function">(<span class="params">&#123;isLoading, pastDelay, error&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isLoading &amp;&amp; pastDelay) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (error &amp;&amp; !isLoading) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(error);</span><br><span class="line">            <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Error!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 如果想要使用自己的渲染逻辑</span></span><br><span class="line">    render(loaded, props) &#123;</span><br><span class="line">        <span class="keyword">let</span> Component = loaded.default;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<p>使用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createRoute&#125; <span class="keyword">from</span> <span class="string">"./routeUtil"</span>;</span><br><span class="line"><span class="keyword">import</span> Loading <span class="keyword">from</span> <span class="string">'@/component/load/Loading'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createRoute([</span><br><span class="line">    &#123;</span><br><span class="line">        path: <span class="string">'/home'</span>,</span><br><span class="line">        component: Loading(<span class="string">'Home'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        path: <span class="string">'/about'</span>,</span><br><span class="line">        component: Loading(<span class="string">'About'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">]);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/22/react学习/" rel="next" title="react学习">
+                <i class="fa fa-chevron-left"></i> react学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/03/vim学习/" rel="prev" title="vim学习">
+                vim学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨伟健</p>
+              <p class="site-description motion-element" itemprop="description">学习总结 思考感悟 阅读笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#react-router-dom4-学习"><span class="nav-number">1.</span> <span class="nav-text">react-router-dom4 学习</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#一、HTML-5-历史记录-API-gt-BrowserRouter"><span class="nav-number"></span> <span class="nav-text">一、HTML 5 历史记录 API =&gt; BrowserRouter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、使用-URL-的-HASH-部分-API-gt-HashRouter"><span class="nav-number"></span> <span class="nav-text">二、使用 URL 的 HASH 部分 API =&gt; HashRouter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、在应用范围提供声明式，可访问式导航"><span class="nav-number"></span> <span class="nav-text">三、在应用范围提供声明式，可访问式导航</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、一种特殊版本的，当与当前URL匹配时，将向渲染元素添加样式属性。"><span class="nav-number"></span> <span class="nav-text">四、一种特殊版本的，当与当前URL匹配时，将向渲染元素添加样式属性。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、渲染将导航到新位置。新位置将覆盖历史堆栈中的当前位置，如服务器端重定向。"><span class="nav-number"></span> <span class="nav-text">五、渲染将导航到新位置。新位置将覆盖历史堆栈中的当前位置，如服务器端重定向。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Route-渲染方式"><span class="nav-number"></span> <span class="nav-text">六、Route 渲染方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、switch-渲染被其包裹的-Route-或-Redirect-第一个匹配-location-的哪一个。"><span class="nav-number"></span> <span class="nav-text">七、switch 渲染被其包裹的 Route 或 Redirect 第一个匹配 location 的哪一个。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、history-对象（props-中的-history-对象）"><span class="nav-number"></span> <span class="nav-text">八、history 对象（props 中的 history 对象）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单封装-react-router-dom"><span class="nav-number"></span> <span class="nav-text">简单封装 react-router-dom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单封装-react-loadable"><span class="nav-number"></span> <span class="nav-text">简单封装 react-loadable</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨伟健</span>
+
+  
+</div>
+
+
+  <div class="powered-by">  个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;&mdash; 杨伟健</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

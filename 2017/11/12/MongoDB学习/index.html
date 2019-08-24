@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、windows 安装 MongoDB 服务1、 安装MongoDB官网上太慢了，这里给个链接：http://dl.mongodb.org/dl/win32/x86_64 2、 安装我是自定义安装在： D:\Program Files\mongodb 3、 填写配置文件在 MongoDB 安装目录下 1、 新建 data 和 logs 文件夹，其中 data 文件夹用来存放数据，logs文件夹用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongoDB学习">
+<meta property="og:url" content="http://weijiany.github.io/2017/11/12/MongoDB学习/index.html">
+<meta property="og:site_name" content="杨伟健的博客">
+<meta property="og:description" content="一、windows 安装 MongoDB 服务1、 安装MongoDB官网上太慢了，这里给个链接：http://dl.mongodb.org/dl/win32/x86_64 2、 安装我是自定义安装在： D:\Program Files\mongodb 3、 填写配置文件在 MongoDB 安装目录下 1、 新建 data 和 logs 文件夹，其中 data 文件夹用来存放数据，logs文件夹用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-24T10:27:10.897Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mongoDB学习">
+<meta name="twitter:description" content="一、windows 安装 MongoDB 服务1、 安装MongoDB官网上太慢了，这里给个链接：http://dl.mongodb.org/dl/win32/x86_64 2、 安装我是自定义安装在： D:\Program Files\mongodb 3、 填写配置文件在 MongoDB 安装目录下 1、 新建 data 和 logs 文件夹，其中 data 文件夹用来存放数据，logs文件夹用">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://weijiany.github.io/2017/11/12/MongoDB学习/">
+
+
+
+
+
+  <title>mongoDB学习 | 杨伟健的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨伟健的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://weijiany.github.io/2017/11/12/MongoDB学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨伟健">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨伟健的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mongoDB学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T16:17:38+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MongoDB/" itemprop="url" rel="index">
+                    <span itemprop="name">MongoDB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、windows-安装-MongoDB-服务"><a href="#一、windows-安装-MongoDB-服务" class="headerlink" title="一、windows 安装 MongoDB 服务"></a>一、windows 安装 MongoDB 服务</h1><h2 id="1、-安装MongoDB"><a href="#1、-安装MongoDB" class="headerlink" title="1、 安装MongoDB"></a>1、 安装MongoDB</h2><p>官网上太慢了，这里给个链接：<a href="http://dl.mongodb.org/dl/win32/x86_64" target="_blank" rel="noopener">http://dl.mongodb.org/dl/win32/x86_64</a></p>
+<h2 id="2、-安装"><a href="#2、-安装" class="headerlink" title="2、 安装"></a>2、 安装</h2><p>我是自定义安装在： <code>D:\Program Files\mongodb</code></p>
+<h2 id="3、-填写配置文件"><a href="#3、-填写配置文件" class="headerlink" title="3、 填写配置文件"></a>3、 填写配置文件</h2><p>在 <code>MongoDB</code> 安装目录下</p>
+<p>1、 新建 <code>data</code> 和 <code>logs</code> 文件夹，其中 data 文件夹用来存放数据，logs文件夹用来存放日志文件。</p>
+<p>2、 创建 <code>mongo.conf</code> 文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dbpath=D:\Program Files\mongodb\data 			#数据库路径 </span><br><span class="line">logpath=D:\Program Files\mongodb\logs\mongo.log 	#日志输出文件路径  </span><br><span class="line">logappend=true 						#错误日志采用追加模式  </span><br><span class="line">journal=true 						#启用日志文件，默认启用  </span><br><span class="line">quiet=true 						#这个选项可以过滤掉一些无用的日志信息，若需要调试使用请设置为false  </span><br><span class="line">port=27017 						#端口号 默认为27017</span><br></pre></td></tr></table></figure></p>
+<h2 id="4、-启动MongoDB"><a href="#4、-启动MongoDB" class="headerlink" title="4、 启动MongoDB"></a>4、 启动MongoDB</h2><p>前三步操作完成后，就可以启动MongoDB了，首先进入 <code>D:\Program Files\mongodb\bin</code>（依安装目录而定）目录下，启动命令如下：</p>
+<p><code>mongod --config &quot;D:\Program Files\mongodb\mongo.conf&quot;</code></p>
+<p>命令执行后，访问 <a href="http://127.0.0.1:27017" target="_blank" rel="noopener">http://127.0.0.1:27017</a> ，在网页上会出现：<code>It looks like you are trying to access MongoDB over HTTP on the native driver port.</code> 说明启动成功。</p>
+<h2 id="5、-创建并启动MongoDB服务"><a href="#5、-创建并启动MongoDB服务" class="headerlink" title="5、 创建并启动MongoDB服务"></a>5、 创建并启动MongoDB服务</h2><p><em><strong>注意：</strong></em> 以下操作必须在以管理员的身份运行的cmd中执行。</p>
+<p>按照如下命令来创建并启动MongoDB服务，就可以通过windows服务来管理MongoDB的启动和关闭了</p>
+<p>首先进入 <code>D:\Program Files\mongodb\bin</code>（依安装目录而定）目录下，启动命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mongod --config &quot;D:\Program Files\mongodb\mongo.conf&quot; --install --serviceName &quot;MongoDB&quot; </span><br><span class="line">net start MongoDB</span><br></pre></td></tr></table></figure>
+<p>停止命令：</p>
+<p><code>net stop MongoDB</code></p>
+<p>如果需要卸载MongoDB服务，首先进入<code>D:\Program Files\mongodb\bin</code>（依安装目录而定）目录下，执行如下命令：</p>
+<p><code>mongod.exe --remove --serviceName &quot;MongoDB&quot;</code></p>
+<h1 id="二、MongoDB-学习"><a href="#二、MongoDB-学习" class="headerlink" title="二、MongoDB 学习"></a>二、MongoDB 学习</h1><h2 id="1、什么是-MongoDB"><a href="#1、什么是-MongoDB" class="headerlink" title="1、什么是 MongoDB"></a>1、什么是 MongoDB</h2><p>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。</p>
+<p>在高负载的情况下，添加更多的节点，可以保证服务器性能。</p>
+<p>MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
+<p>MongoDB 将数据存储为一个文档，数据结构由键值(key=&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。</p>
+<h2 id="2、MongoDB-基本概念"><a href="#2、MongoDB-基本概念" class="headerlink" title="2、MongoDB 基本概念"></a>2、MongoDB 基本概念</h2><table>
+<thead>
+<tr>
+<th>SQL 术语/概念</th>
+<th>MongoDB 术语概念</th>
+<th>解释/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>database</td>
+<td>database</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>table</td>
+<td>collection</td>
+<td>数据表库/集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td>document</td>
+<td>数据库表/集合</td>
+</tr>
+<tr>
+<td>column</td>
+<td>field</td>
+<td>数据字段/域</td>
+</tr>
+<tr>
+<td>index</td>
+<td>index</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>table join</td>
+<td></td>
+<td>表连接，MongoDB 不支持</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主键，MongoDB 自动将 _id 设置为主键</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3、数据库"><a href="#3、数据库" class="headerlink" title="3、数据库"></a>3、数据库</h2><p>一个 <code>MongoDB</code> 中可以建立多个数据库。</p>
+<p>命令及解释：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>show dbs</td>
+<td>显示所有的数据库</td>
+</tr>
+<tr>
+<td>db</td>
+<td>显示当前数据库</td>
+</tr>
+<tr>
+<td>use [name]</td>
+<td>如果当前数据库存在，则切换；否则创建</td>
+</tr>
+<tr>
+<td>db.dropDatabase()</td>
+<td>删除当前数据库</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4、集合"><a href="#4、集合" class="headerlink" title="4、集合"></a>4、集合</h2><p>每一个集合 <code>collection</code> 相当于一个表</p>
+<ol>
+<li><p>创建集合：<br> <code>db.createCollection(name, options)</code></p>
+<p> 参数说明：</p>
+<ul>
+<li>name：要创建的集合名词</li>
+<li>options：可选参数：  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	capped: true, // 如果为 true，则创建固定集合。固定集合是指有着固定大小的集合，当达到最大值时，它会自动覆盖最早的文档。</span><br><span class="line">	size: 10, // 为固定集合指定一个最大值（以字节计）</span><br><span class="line">	autoIndexId: true, // 如为 true，自动在 _id 字段创建索引。默认为 false。</span><br><span class="line">	max: 20, // 指定固定集合中包含文档的最大数量</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>查看集合：<br> <code>show collections</code></p>
+<p> <strong><em>注意：</em></strong> 在你向文档中插入数据的时候，<code>MongoDB</code> 会自动创建集合。</p>
+</li>
+<li>删除集合：<br> <code>db.collection.drop()</code> 删除当前数据库中的 <code>collection</code> 集合</li>
+</ol>
+<h2 id="5、文档"><a href="#5、文档" class="headerlink" title="5、文档"></a>5、文档</h2><p>所有的数据都是一个文档 <code>document</code></p>
+<ol>
+<li><p>插入文档：<br> <code>db.COLLECTION_NAME.insert(document)</code></p>
+<p> 例如：<code>db.person.insert({name: &quot;杨伟健&quot;, age: 23})</code></p>
+</li>
+<li><p>update 更新文档：<br> <code>db.COLLECTION_NAME.update(query, update, options)</code></p>
+<p> 参数说明：</p>
+<ul>
+<li>query：<code>update</code> 查询条件，一个 <code>Object</code> 对象</li>
+<li>update：<code>update</code> 的对象和一些更新的操作符，例如：<code>{$set: {name: &quot;张三&quot;}}</code></li>
+<li><p>options：</p>
+<ul>
+<li>upsert：如果不存在的话，插入记录</li>
+<li>multi：<code>mongodb</code> 默认是 <code>false</code>，只更新找到的第一条记录，如果这个参数为 <code>true</code>，就把按条件查出来多条记录全部更新。</li>
+<li>writeConcern：抛出异常的级别</li>
+</ul>
+<p>例如：<code>db.person.update({name: &quot;李四&quot;}, {$set: {age: 1}})</code></p>
+</li>
+</ul>
+</li>
+<li><p>save 更新文档：<br> <code>db.COLLECTION_NAME.save(obj)</code></p>
+<p> 参数说明：</p>
+<ul>
+<li>obj：要替换的文档，必须有 <code>_id</code> </li>
+</ul>
+</li>
+<li><p>删除文档：<br> <code>db.COLLECTION_NAME.remove(query, options)</code></p>
+<p> 参数说明：</p>
+<ul>
+<li>query：删除文档的条件</li>
+<li><p>options：</p>
+<ul>
+<li>juestOne：如果设为 true 或 1，则只删除一个文档，如果不设置该参数，或使用默认值 false，则删除所有匹配条件的文档。</li>
+<li>writeConcern：抛出异常的级别</li>
+</ul>
+<p>例如：<code>db.preson.remove({name: &quot;张三&quot;})</code></p>
+</li>
+</ul>
+</li>
+<li>显示所有文档：<br> <code>db.COLLECTION_NAME.find()</code></li>
+<li><p>查找满足条件中的第一个<br> <code>db.COLLECTION_NAME.findOne(condition)</code></p>
+<p> condition：一个 <code>Object</code> 对象</p>
+</li>
+<li>使用 <code>$or</code> 代表 <code>or</code></li>
+</ol>
+<h2 id="6、条件操作符"><a href="#6、条件操作符" class="headerlink" title="6、条件操作符"></a>6、条件操作符</h2><table>
+<thead>
+<tr>
+<th>条件</th>
+<th>操作符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$gt</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>$lt</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>$gte</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>$glt</td>
+<td>小于等于</td>
+</tr>
+</tbody>
+</table>
+<p><strong><em>例如：</em></strong></p>
+<p>获取年龄小于20的 <code>person</code>：<code>db.person.find({age: {$lt: 20}})</code></p>
+<h2 id="7、-type-操作符"><a href="#7、-type-操作符" class="headerlink" title="7、$type 操作符"></a>7、$type 操作符</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数字</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>double</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>string</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>object</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>array</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>binary data</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>6</td>
+<td>已废弃</td>
+</tr>
+<tr>
+<td>object id</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>8</td>
+<td></td>
+</tr>
+<tr>
+<td>date</td>
+<td>9</td>
+<td></td>
+</tr>
+<tr>
+<td>null</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>regular expression</td>
+<td>11</td>
+<td></td>
+</tr>
+<tr>
+<td>javascript</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>14</td>
+<td></td>
+</tr>
+<tr>
+<td>javascript(with scope)</td>
+<td>15</td>
+<td></td>
+</tr>
+<tr>
+<td>32-bit integer</td>
+<td>16</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>17</td>
+<td></td>
+</tr>
+<tr>
+<td>64-bit integer</td>
+<td>18</td>
+<td></td>
+</tr>
+<tr>
+<td>min key</td>
+<td>255</td>
+<td>query with -1</td>
+</tr>
+<tr>
+<td>max key</td>
+<td>127</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p><strong><em>例如：</em></strong></p>
+<p>获取 <code>name</code> 为 <code>string</code> 的 <code>person</code>：<code>db.person.find({name: {&quot;$type&quot;: &quot;string&quot;}})</code></p>
+<h2 id="8、limit-方法"><a href="#8、limit-方法" class="headerlink" title="8、limit() 方法"></a>8、limit() 方法</h2><p>查询前两条记录：<code>db.person.find().limit(2)</code></p>
+<h2 id="9、skip-方法"><a href="#9、skip-方法" class="headerlink" title="9、skip() 方法"></a>9、skip() 方法</h2><p>只显示第二条记录：<code>db.person.find().skip(1).limit(1)</code></p>
+<h2 id="10、sort-方法"><a href="#10、sort-方法" class="headerlink" title="10、sort() 方法"></a>10、sort() 方法</h2><p>在 <code>MongoD</code>B 中使用 <code>sort()</code> 方法对数据进行排序，<code>sort()</code> 方法可以通过参数指定排序的字段，并使用 1 和 -1 来指定排序的方式，其中 1 为升序排列，而 -1 是用于降序排列。</p>
+<p>以年龄(<code>age</code>)升序排列：<code>db.person.find().sort({age: 1})</code></p>
+<h2 id="11、索引"><a href="#11、索引" class="headerlink" title="11、索引"></a>11、索引</h2><ol>
+<li><p>创建索引：<br> <code>db.collection.createIndex(keys, options)</code></p>
+<p> 参数说明：</p>
+<ul>
+<li>background(boolean): 建索引过程会阻塞其它数据库操作，background可指定以后台方式创建索引，即增加 “background” 可选参数。 “background” 默认值为false。</li>
+<li>unique(boolean): 建立的索引是否唯一。指定为true创建唯一索引。默认值为false。</li>
+<li>name(string): 索引的名称。如果未指定，MongoDB的通过连接索引的字段名和排序顺序生成一个索引名称。</li>
+<li>sparse(boolean): 对文档中不存在的字段数据不启用索引；这个参数需要特别注意，如果设置为true的话，在索引字段中不会查询出不包含对应字段的文档.。默认值为 false.</li>
+<li>expireAfterSeconds(integer): 指定一个以秒为单位的数值，完成 TTL设定，设定集合的生存时间。</li>
+<li>v(index): 索引的版本号。默认的索引版本取决于mongod创建索引时运行的版本。</li>
+<li>weights: (document): 索引权重值，数值在 1 到 99,999 之间，表示该索引相对于其他索引字段的得分权重。</li>
+<li>default_language(string): 对于文本索引，该参数决定了停用词及词干和词器的规则的列表。 默认为英语</li>
+<li>language_override(string): 对于文本索引，该参数指定了包含在文档中的字段名，语言覆盖默认的language，默认值为 language.</li>
+</ul>
+</li>
+<li>查看集合的索引<br> <code>db.collection.getIndexes()</code></li>
+<li>查看集合索引大小<br> <code>db.collection.totalIndexSize()</code></li>
+<li>删除集合所有索引<br> <code>db.collection.dropIndexes()</code></li>
+<li>删除集合指定索引<br> <code>db.collection.dropIndex(&quot;索引名称&quot;)</code></li>
+</ol>
+<h2 id="12、group-聚合"><a href="#12、group-聚合" class="headerlink" title="12、group 聚合"></a>12、group 聚合</h2><p>搜索 <code>person</code> 中 <code>name</code> 相同的数量，并把 <code>name</code> 存在 <code>user</code> 中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">db.person.group(&#123;</span><br><span class="line">	key: &#123;&quot;name&quot;: true&#125;,</span><br><span class="line">	initial: &#123;&quot;user&quot;: []&#125;,</span><br><span class="line">	reduce: function(cur, pre) &#123;</span><br><span class="line">		pre.user.push(cur.name)</span><br><span class="line">	&#125;,</span><br><span class="line">	finalize: function(out) &#123;</span><br><span class="line">		out.count = out.user.length</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong><em>解释：</em></strong></p>
+<ul>
+<li>key：要搜索的键</li>
+<li>initial：初始化数据</li>
+<li>reduce：对遍历到的每一个文档进行的操作</li>
+<li>finalize：遍历完后最后的操作</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/01/导航栏吸顶效果/" rel="next" title="导航栏吸顶效果">
+                <i class="fa fa-chevron-left"></i> 导航栏吸顶效果
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/25/django查询/" rel="prev" title="django查询">
+                django查询 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨伟健</p>
+              <p class="site-description motion-element" itemprop="description">学习总结 思考感悟 阅读笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、windows-安装-MongoDB-服务"><span class="nav-number">1.</span> <span class="nav-text">一、windows 安装 MongoDB 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-安装MongoDB"><span class="nav-number">1.1.</span> <span class="nav-text">1、 安装MongoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、-安装"><span class="nav-number">1.2.</span> <span class="nav-text">2、 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、-填写配置文件"><span class="nav-number">1.3.</span> <span class="nav-text">3、 填写配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、-启动MongoDB"><span class="nav-number">1.4.</span> <span class="nav-text">4、 启动MongoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、-创建并启动MongoDB服务"><span class="nav-number">1.5.</span> <span class="nav-text">5、 创建并启动MongoDB服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、MongoDB-学习"><span class="nav-number">2.</span> <span class="nav-text">二、MongoDB 学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、什么是-MongoDB"><span class="nav-number">2.1.</span> <span class="nav-text">1、什么是 MongoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、MongoDB-基本概念"><span class="nav-number">2.2.</span> <span class="nav-text">2、MongoDB 基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、数据库"><span class="nav-number">2.3.</span> <span class="nav-text">3、数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、集合"><span class="nav-number">2.4.</span> <span class="nav-text">4、集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、文档"><span class="nav-number">2.5.</span> <span class="nav-text">5、文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、条件操作符"><span class="nav-number">2.6.</span> <span class="nav-text">6、条件操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、-type-操作符"><span class="nav-number">2.7.</span> <span class="nav-text">7、$type 操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、limit-方法"><span class="nav-number">2.8.</span> <span class="nav-text">8、limit() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、skip-方法"><span class="nav-number">2.9.</span> <span class="nav-text">9、skip() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、sort-方法"><span class="nav-number">2.10.</span> <span class="nav-text">10、sort() 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11、索引"><span class="nav-number">2.11.</span> <span class="nav-text">11、索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12、group-聚合"><span class="nav-number">2.12.</span> <span class="nav-text">12、group 聚合</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨伟健</span>
+
+  
+</div>
+
+
+  <div class="powered-by">  个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash;&mdash; 杨伟健</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
