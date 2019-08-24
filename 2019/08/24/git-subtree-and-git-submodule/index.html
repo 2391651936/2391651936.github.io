@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="学习总结 思考感悟 阅读笔记">
-<meta property="og:type" content="website">
-<meta property="og:title" content="jdk 代理">
-<meta property="og:url" content="http://weijiany.github.io/jdk-代理/index.html">
+<meta name="description" content="git subtree and git submodule当项目中出现了，在一个大的代码库中，还需要引用别的自己团队维护的代码库的时候，可以shiyong git 来进行操作，在父项目中添加子项目的工程。 在 git 中可以使用，git subtree 和 git submodule 进行编排。  git subtree    1234git remote add repo1 git@github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git subtree and git submodule">
+<meta property="og:url" content="http://weijiany.github.io/2019/08/24/git-subtree-and-git-submodule/index.html">
 <meta property="og:site_name" content="杨伟健的博客">
-<meta property="og:description" content="学习总结 思考感悟 阅读笔记">
+<meta property="og:description" content="git subtree and git submodule当项目中出现了，在一个大的代码库中，还需要引用别的自己团队维护的代码库的时候，可以shiyong git 来进行操作，在父项目中添加子项目的工程。 在 git 中可以使用，git subtree 和 git submodule 进行编排。  git subtree    1234git remote add repo1 git@github">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-24T10:27:10.923Z">
+<meta property="og:updated_time" content="2019-08-24T10:55:52.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jdk 代理">
-<meta name="twitter:description" content="学习总结 思考感悟 阅读笔记">
+<meta name="twitter:title" content="git subtree and git submodule">
+<meta name="twitter:description" content="git subtree and git submodule当项目中出现了，在一个大的代码库中，还需要引用别的自己团队维护的代码库的时候，可以shiyong git 来进行操作，在父项目中添加子项目的工程。 在 git 中可以使用，git subtree 和 git submodule 进行编排。  git subtree    1234git remote add repo1 git@github">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://weijiany.github.io/jdk-代理/">
+  <link rel="canonical" href="http://weijiany.github.io/2019/08/24/git-subtree-and-git-submodule/">
 
 
 
 
 
-  <title>jdk 代理 | 杨伟健的博客</title>
+  <title>git subtree and git submodule | 杨伟健的博客</title>
   
 
 
@@ -230,33 +230,171 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://weijiany.github.io/2019/08/24/git-subtree-and-git-submodule/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨伟健">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨伟健的博客">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">jdk 代理</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">git subtree and git submodule</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-24T18:41:11+08:00">
+                2019-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="git-subtree-and-git-submodule"><a href="#git-subtree-and-git-submodule" class="headerlink" title="git subtree and git submodule"></a>git subtree and git submodule</h2><p>当项目中出现了，在一个大的代码库中，还需要引用别的自己团队维护的代码库的时候，可以shiyong <code>git</code> 来进行操作，在父项目中添加子项目的工程。</p>
+<p>在 <code>git</code> 中可以使用，<code>git subtree</code> 和 <code>git submodule</code> 进行编排。</p>
+<ul>
+<li><p>git subtree </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote add repo1 git@github.com:username/repo1.git # 添加子项目的远程地址</span><br><span class="line">git subtree add -P repo1/ repo1 master # 把当前项目添加到父工程中，-P： 指定子项目所在的文件夹</span><br><span class="line">git subtree pull -P repo1 repo1 master # pull code</span><br><span class="line">git subtree push -P repo1 repo1 master # push code</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>git submocule</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git submodule init # 初始化本地.gitmodules文件</span><br><span class="line">git submodule add –b master git@github.com:username/repo1.git # 添加子项目到当前父项目中</span><br><span class="line">git submodule update # 同步远端submodule源码</span><br><span class="line"></span><br><span class="line">git clone --recurse-submodules &lt;main_project_url&gt; # 获取主项目和所有子项目源码</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>git subtree</code> 会把子项目中的所有文件拷贝到当前的父项目中，但是 <code>git submodule</code> 会在父项目中添加一个子项目的引用。所以在使用 <code>git submodule</code> 时，会出现：当 pull 代码下来后，并没有进行子项目的分支切换的话，可能会导致把远端的代码推成空指针。</p>
+<p>推荐使用 <code>git subtree</code> 解决这样的问题。</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/03/vim学习/" rel="next" title="vim学习">
+                <i class="fa fa-chevron-left"></i> vim学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -289,8 +427,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -352,6 +499,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-subtree-and-git-submodule"><span class="nav-number">1.</span> <span class="nav-text">git subtree and git submodule</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
