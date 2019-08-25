@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="杨伟健的博客">
 <meta property="og:description" content="零、我这里使用的系统：ubuntu 16.04（一下所有命令均在 root 权限下执行）一、docker 安装使用 apt-get install docker.io 安装完成后，使用 docker --version 来检测安装是否完成。 可以在阿里云https://cr.console.aliyun.com/?spm=a2c4e.11153940.blogcont29941.9.520269d">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-24T10:27:10.898Z">
+<meta property="og:updated_time" content="2019-08-24T14:10:10.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker学习">
 <meta name="twitter:description" content="零、我这里使用的系统：ubuntu 16.04（一下所有命令均在 root 权限下执行）一、docker 安装使用 apt-get install docker.io 安装完成后，使用 docker --version 来检测安装是否完成。 可以在阿里云https://cr.console.aliyun.com/?spm=a2c4e.11153940.blogcont29941.9.520269d">
@@ -435,6 +435,108 @@
 </tr>
 </tbody>
 </table>
+<h2 id="Dockerfile-学习"><a href="#Dockerfile-学习" class="headerlink" title="Dockerfile 学习"></a>Dockerfile 学习</h2><ul>
+<li><p>CMD:</p>
+<p>  用于指定一个容器启动时要运行的命令。</p>
+<p>  例如：</p>
+<ul>
+<li><code>CMD [&quot;/bin/bash&quot;, &quot;-l&quot;]</code></li>
+<li><p><code>CMD /bin/bash -l</code></p>
+<p>可以被在命令行中替换掉，例如：在 <code>Dockerfile</code> 中 <code>CMD [&quot;/bin/bash&quot;, &quot;-l&quot;]</code> 但是在执行 <code>docker run -it [name] /bin/ps</code> 容器并没有启动 <code>shell</code>，而是通过命令行参数覆盖了 <code>CMD</code> 指令中指定的命令。</p>
+</li>
+</ul>
+</li>
+<li><p>ENTRYPOINT:</p>
+<p>  用于指定一个容器启动时要运行的命令。不同与 <code>CMD</code> 不容易在启动时被覆盖。通过指定 <code>--entrypoint</code> 参数依然可以替换掉。</p>
+<p>  例如：</p>
+<ul>
+<li><code>ENTRYPOINT [&quot;/bin/bash&quot;, &quot;-l&quot;]</code></li>
+<li><p><code>ENTRYPOINT /bin/bash -l</code></p>
+<p>指定容齐入口命令。</p>
+<p>可以组合使用 <code>CMD</code> 和 <code>ENTRYPOINT</code>，例如：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENTRYPOINT</span> ["/usr/sbin/nginx"]　</span><br><span class="line"><span class="keyword">CMD</span> ["-h"]</span><br></pre></td></tr></table></figure>
+<p>我们可以在命令行中指定参数会被传递到 <code>nginx</code>，当不指定的时候，会把 <code>CMD</code> 中的参数传递给 <code>nginx</code>。</p>
+</li>
+</ul>
+</li>
+<li><p>WORKDIR</p>
+<p>  <code>WORKDIR</code> 指令用来在从镜像创建一个新容器时，在容器内部设置一个工作目录，在之后的指令会在当前工作目录进行。</p>
+<p>  例如：</p>
+<ul>
+<li><p><code>WORKDIR /app</code></p>
+<p>可以通过 <code>-w</code> 标志在运行时覆盖工作目录，例如：<code>docker run -w /work/app ubuntu</code>。</p>
+</li>
+</ul>
+</li>
+<li><p>ENV</p>
+<p>  <code>ENV</code> 指令用来在镜像构建过程中设置环境变量。</p>
+<p>  例如：</p>
+<ul>
+<li><p><code>ENV USERNAME admin</code></p>
+<p>可以在后面的指令，或者在容器运行的时候可以读取到已经设置的环境变量。</p>
+</li>
+</ul>
+</li>
+<li><p>USER</p>
+<p>  <code>USER nginx</code> 指令用来指定该镜像会以什么样的用户去运行。</p>
+<p>  基于该镜像启动的容器会以 <code>nginx</code> 用户身份来运行，也可以在 <code>docker run</code> 中通过 <code>-u</code> 进行指定。</p>
+</li>
+<li><p>VOLUME</p>
+<p>  VOLUME指令用来向基于镜像创建的容器添加卷。一个卷是可以存在于一个或者多个容器内的特定的目录，这个目录可以绕过联合文件系统，并提供如下共享数据或者对数据进行持久化的功能。</p>
+<ul>
+<li>卷可以在容器间共享和重用。</li>
+<li>一个容器可以不是必须和其他容器共享卷。</li>
+<li>对卷的修改是立时生效的。</li>
+<li>对卷的修改不会对更新镜像产生影响。</li>
+<li><p>卷会一直存在直到没有任何容器再使用它。</p>
+<p>例如：</p>
+</li>
+<li><p><code>VOLUME [&quot;/opt/project&quot;]</code></p>
+</li>
+</ul>
+</li>
+<li><p>ADD</p>
+<p>  ADD指令用来将构建环境下的文件和目录复制到镜像中。</p>
+<p>  例如：</p>
+<ul>
+<li><p><code>ADD . .</code> 把当前文件中的所有文件拷贝到镜像中。</p>
+<p>ADD指令用来将构建环境下的文件和目录复制到镜像中。比如，在安装一个应用程序时。ADD指令需要源文件位置和目的文件位置两个参数。如果目的地址以/结尾，那么Docker就认为源位置指向的是目录。如果目的地址不是以/结尾，那么Docker就认为源位置指向的是文件。</p>
+<p>如果当前文件是一个压缩包，会进行解压。例如：<code>ADD latest.tar.gz /var/www/wordpress/</code></p>
+<p><em><strong>注意：</strong></em> ADD指令会使得构建缓存变得无效，这一点也非常重要。如果通过ADD指令向镜像添加一个文件或者目录，那么这将使Dockerfile中的后续指令都不能继续使用之前的构建缓存。</p>
+</li>
+</ul>
+</li>
+<li><p>COPY</p>
+<p>  <code>COPY</code> 指令非常类似于 <code>ADD</code>，它们根本的不同是 <code>COPY</code> 只关心在构建上下文中复制本地文件，而不会去做文件提取和解压的工作。</p>
+<p>  例如：</p>
+<ul>
+<li><p><code>COPY . .</code> 把当前文件中的所有文件拷贝到镜像中。</p>
+<p>文件源路径必须是一个与当前构建环境相对的文件或者目录，本地文件都放到和 <code>Dockerfile</code> 同一个目录下。不能复制该目录之外的任何文件，因为构建环境将会上传到 <code>Docker</code> 守护进程，而复制是在 <code>Docker</code> 守护进程中进行的。任何位于构建环境之外的东西都是不可用的。<code>COPY</code> 指令的目的位置则必须是容器内部的一个绝对路径。</p>
+</li>
+</ul>
+</li>
+<li><p>LABEL</p>
+<p>  <code>LABEL</code> 指令用于为 <code>Docker</code> 镜像添加元数据。元数据以键值对的形式展现。</p>
+<p>  例如：</p>
+<ul>
+<li><p><code>LABEL version=1.0</code></p>
+<p><code>LABEL</code> 指令以 <code>key=&quot;value&quot;</code> 的形式出现。可以在每一条指令中指定一个元数据，或者指定多个元数据，不同的元数据之间用空格分隔。</p>
+<p>可以使用 <code>docker inspect</code> 查看 <code>Labels</code> 的信息。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">"Labels": &#123;</span><br><span class="line">    "version": "1.0"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>ARG</p>
+<p>  <code>ARG</code> 指令用来定义可以在 <code>docker build</code> 命令运行时传递给构建运行时的变量，我们只需要在构建时使用<code>--build-arg</code> 标志即可。</p>
+<p>  例如：</p>
+<ul>
+<li><code>ARG build</code></li>
+<li><p><code>ARG webapp_user=user</code></p>
+<p>使用 <code>--build-arg</code> 可以指定设置好的 <code>ARG</code>，例如： <code>docker build --build-arg build=1234</code> </p>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -605,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#零、我这里使用的系统：ubuntu-16-04（一下所有命令均在-root-权限下执行）"><span class="nav-number">1.</span> <span class="nav-text">零、我这里使用的系统：ubuntu 16.04（一下所有命令均在 root 权限下执行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、docker-安装"><span class="nav-number">2.</span> <span class="nav-text">一、docker 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、通过-docker-获取-mysql"><span class="nav-number">3.</span> <span class="nav-text">二、通过 docker 获取 mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、重命名镜像"><span class="nav-number">4.</span> <span class="nav-text">三、重命名镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、利用容器对-mysql-服务操作"><span class="nav-number">5.</span> <span class="nav-text">四、利用容器对 mysql 服务操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、挂在本机文件到容器中指定的文件上"><span class="nav-number">6.</span> <span class="nav-text">五、挂在本机文件到容器中指定的文件上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、安装-mysql-client-对容器中的-mysql-测试连接"><span class="nav-number">7.</span> <span class="nav-text">六、安装 mysql client 对容器中的 mysql 测试连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、docker-基本命令"><span class="nav-number">8.</span> <span class="nav-text">七、docker 基本命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#零、我这里使用的系统：ubuntu-16-04（一下所有命令均在-root-权限下执行）"><span class="nav-number">1.</span> <span class="nav-text">零、我这里使用的系统：ubuntu 16.04（一下所有命令均在 root 权限下执行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、docker-安装"><span class="nav-number">2.</span> <span class="nav-text">一、docker 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、通过-docker-获取-mysql"><span class="nav-number">3.</span> <span class="nav-text">二、通过 docker 获取 mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、重命名镜像"><span class="nav-number">4.</span> <span class="nav-text">三、重命名镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、利用容器对-mysql-服务操作"><span class="nav-number">5.</span> <span class="nav-text">四、利用容器对 mysql 服务操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、挂在本机文件到容器中指定的文件上"><span class="nav-number">6.</span> <span class="nav-text">五、挂在本机文件到容器中指定的文件上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、安装-mysql-client-对容器中的-mysql-测试连接"><span class="nav-number">7.</span> <span class="nav-text">六、安装 mysql client 对容器中的 mysql 测试连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、docker-基本命令"><span class="nav-number">8.</span> <span class="nav-text">七、docker 基本命令</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-学习"><span class="nav-number"></span> <span class="nav-text">Dockerfile 学习</span></a></li></div>
             
 
           </div>
