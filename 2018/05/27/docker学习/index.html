@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="杨伟健的博客">
 <meta property="og:description" content="零、我这里使用的系统：ubuntu 16.04（一下所有命令均在 root 权限下执行）一、docker 安装使用 apt-get install docker.io 安装完成后，使用 docker --version 来检测安装是否完成。 可以在阿里云https://cr.console.aliyun.com/?spm=a2c4e.11153940.blogcont29941.9.520269d">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-24T14:10:10.310Z">
+<meta property="og:updated_time" content="2019-08-26T09:56:11.524Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker学习">
 <meta name="twitter:description" content="零、我这里使用的系统：ubuntu 16.04（一下所有命令均在 root 权限下执行）一、docker 安装使用 apt-get install docker.io 安装完成后，使用 docker --version 来检测安装是否完成。 可以在阿里云https://cr.console.aliyun.com/?spm=a2c4e.11153940.blogcont29941.9.520269d">
@@ -532,11 +532,17 @@
 <ul>
 <li><code>ARG build</code></li>
 <li><p><code>ARG webapp_user=user</code></p>
-<p>使用 <code>--build-arg</code> 可以指定设置好的 <code>ARG</code>，例如： <code>docker build --build-arg build=1234</code> </p>
+<p>使用 <code>--build-arg</code> 可以指定设置好的 <code>ARG</code>，例如： <code>docker build --build-arg build=1234</code></p>
 </li>
 </ul>
 </li>
 </ul>
+<h2 id="docker-网络"><a href="#docker-网络" class="headerlink" title="docker 网络"></a>docker 网络</h2><p>指定 –net 进行 docker 网络连接</p>
+<p>默认情况下 <code>docker</code> 容器之间是不会再同一个网络中，需要自己手动指定。</p>
+<p>可以使用 <code>docker network</code> 等参数对容器的网络进行操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">connect     Connect a container to a network</span><br><span class="line">create      Create a network</span><br><span class="line">disconnect  Disconnect a container from a network</span><br><span class="line">inspect     Display detailed information on one or more networks</span><br><span class="line">ls          List networks</span><br><span class="line">prune       Remove all unused networks</span><br><span class="line">rm          Remove one or more networks</span><br></pre></td></tr></table></figure>
+<p>可以在 <code>docker run</code> 中指定 <code>--net</code> 来指定当前启动的容器运行在哪个网络</p>
+<p><code>--privileged</code> 来运行容器。<code>--privileged</code> 标志很特别，可以启动 <code>Docker</code> 的特权模式，这种模式允许我们以其宿主机具有的（几乎）所有能力来运行容器，包括一些内核特性和设备访问。</p>
 
       
     </div>
@@ -650,7 +656,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -661,7 +667,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -707,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#零、我这里使用的系统：ubuntu-16-04（一下所有命令均在-root-权限下执行）"><span class="nav-number">1.</span> <span class="nav-text">零、我这里使用的系统：ubuntu 16.04（一下所有命令均在 root 权限下执行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、docker-安装"><span class="nav-number">2.</span> <span class="nav-text">一、docker 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、通过-docker-获取-mysql"><span class="nav-number">3.</span> <span class="nav-text">二、通过 docker 获取 mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、重命名镜像"><span class="nav-number">4.</span> <span class="nav-text">三、重命名镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、利用容器对-mysql-服务操作"><span class="nav-number">5.</span> <span class="nav-text">四、利用容器对 mysql 服务操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、挂在本机文件到容器中指定的文件上"><span class="nav-number">6.</span> <span class="nav-text">五、挂在本机文件到容器中指定的文件上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、安装-mysql-client-对容器中的-mysql-测试连接"><span class="nav-number">7.</span> <span class="nav-text">六、安装 mysql client 对容器中的 mysql 测试连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、docker-基本命令"><span class="nav-number">8.</span> <span class="nav-text">七、docker 基本命令</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-学习"><span class="nav-number"></span> <span class="nav-text">Dockerfile 学习</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#零、我这里使用的系统：ubuntu-16-04（一下所有命令均在-root-权限下执行）"><span class="nav-number">1.</span> <span class="nav-text">零、我这里使用的系统：ubuntu 16.04（一下所有命令均在 root 权限下执行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、docker-安装"><span class="nav-number">2.</span> <span class="nav-text">一、docker 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、通过-docker-获取-mysql"><span class="nav-number">3.</span> <span class="nav-text">二、通过 docker 获取 mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、重命名镜像"><span class="nav-number">4.</span> <span class="nav-text">三、重命名镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、利用容器对-mysql-服务操作"><span class="nav-number">5.</span> <span class="nav-text">四、利用容器对 mysql 服务操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、挂在本机文件到容器中指定的文件上"><span class="nav-number">6.</span> <span class="nav-text">五、挂在本机文件到容器中指定的文件上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、安装-mysql-client-对容器中的-mysql-测试连接"><span class="nav-number">7.</span> <span class="nav-text">六、安装 mysql client 对容器中的 mysql 测试连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、docker-基本命令"><span class="nav-number">8.</span> <span class="nav-text">七、docker 基本命令</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-学习"><span class="nav-number"></span> <span class="nav-text">Dockerfile 学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-网络"><span class="nav-number"></span> <span class="nav-text">docker 网络</span></a></li></div>
             
 
           </div>
